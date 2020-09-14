@@ -4,27 +4,33 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
       color: Colors.white,
       margin: EdgeInsets.fromLTRB(0,25, 0,0),
-      child: Row(        
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,            
         children: <Widget>[
-          Container(            
-            child: IconButton(icon: Icon(Icons.menu), onPressed: () =>{})),
-          Container(
-            margin: EdgeInsets.fromLTRB(95, 0,0, 0),
-            child: Text(
-              'E-Emergancy',
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.lightBlue),
-                
-                ),
-          ),
-          Container(
-            margin: EdgeInsets.fromLTRB(101,0,0, 0),
-            child: IconButton(
-              icon: Icon(Icons.person),
-               onPressed: () =>{})),
+          Container(        
+               
+            child: IconButton(icon: Icon(Icons.menu), onPressed: () =>{})),          
+           Container(      
+             alignment: Alignment.center,       
+              child: Text(
+                'E-Emergancy',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.lightBlue),
+                  
+                  ),
+            ),
+                   
+            Container(     
+                           
+                child: IconButton(
+                  
+                  icon: Icon(Icons.person),
+                   onPressed: () =>{})),
+          
         ],
         ),
       

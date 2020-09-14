@@ -23,7 +23,13 @@ class MyAppState extends State<MyApp> {
         body: Container(
           color: Colors.grey.shade200,          
           child:Column(
-            children: <Widget>[TopBar(),GovermentAnnouncementWidget(),AskForHelpWidget('Ping an Emergency'),AskForHelpWidget('Ping a Fire')],),
+            children: <Widget>[
+              TopBar(),
+              GovermentAnnouncementWidget(),
+              AskForHelpWidget('Ping an Emergency'),
+            
+              ],
+              ),
             
         ),
         

@@ -8,22 +8,23 @@ class AskForHelpWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10),
-      
-      width: double.infinity,
-      height: 140,
-      child: FlatButton(  
+      margin: EdgeInsets.all(10),         
+      child: FlatButton(
+          
         onPressed: () => {},              
         color: Colors.red,
-        child: Container(
-          margin: EdgeInsets.all(40),
-          child: Text(          
-            text,
-            textAlign: TextAlign.center,
-            style: TextStyle(            
-              color: Colors.white,
-              fontSize: 30,
-              fontWeight: FontWeight.bold),),
+        child: Flexible(
+                  fit: FlexFit.tight,
+                  child: Container(
+            margin: EdgeInsets.all(40),
+            child: Text(          
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(            
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.bold),),
+          ),
         ),
       ),
 
