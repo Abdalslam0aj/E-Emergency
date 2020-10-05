@@ -5,21 +5,21 @@ class TopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Colors.white,
+      color: Colors.blue,
       margin: EdgeInsets.fromLTRB(0,25, 0,0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,            
         children: <Widget>[
           Container(        
                
-            child: IconButton(icon: Icon(Icons.menu), onPressed: () =>{})),          
+            child: IconButton(icon: Icon(Icons.menu),color: Colors.black, onPressed: () =>{})),          
            Container(      
              alignment: Alignment.center,       
               child: Text(
                 'E-Emergancy',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.lightBlue),
+                  color: Colors.black),
                   
                   ),
             ),
@@ -28,7 +28,7 @@ class TopBar extends StatelessWidget {
                            
                 child: IconButton(
                   
-                  icon: Icon(Icons.person),
+                  icon: Icon(Icons.person,color: Colors.black,),
                    onPressed: () =>{})),
           
         ],

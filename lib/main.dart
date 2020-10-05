@@ -1,5 +1,7 @@
 import 'package:E_Emergency/widgets/AskForHelpWidget.dart';
+import 'package:E_Emergency/widgets/CivilianMainMenu.dart';
 import 'package:E_Emergency/widgets/GovermentAnnouncementWidget.dart';
+import 'package:E_Emergency/widgets/ParamedicMainMenu.dart';
 import 'package:E_Emergency/widgets/TopBar.dart';
 import 'package:flutter/material.dart';
 
@@ -16,21 +18,20 @@ class MyApp extends StatefulWidget {
 
 
 class MyAppState extends State<MyApp> {
+  bool _checkUserTypeCivilian(){
+    
+    return true;
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(                
         body: Container(
-          color: Colors.grey.shade200,          
-          child:Column(
-            children: <Widget>[
-              TopBar(),
-              GovermentAnnouncementWidget(),
-              AskForHelpWidget('Ping an Emergency'),
-            
-              ],
-              ),
-            
+          
+          child:  _checkUserTypeCivilian()? CivilianMainMenu() :ParamedicMainMenu(),
         ),
         
       ),

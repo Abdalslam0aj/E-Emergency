@@ -10,7 +10,8 @@ class _GovermentAnnouncementWidgetState extends State<GovermentAnnouncementWidge
   @override
   Widget  build(BuildContext context) {
     return Container(
-      color: Colors.yellow.shade600,
+       margin: EdgeInsets.all(5),
+      decoration: BoxDecoration(border: Border.all(width: 1,color: Colors.red,),color: Colors.black,borderRadius: BorderRadius.circular(15)),      
       child:Row(
         children: <Widget>[
           Container(
@@ -29,8 +30,8 @@ class _GovermentAnnouncementWidgetState extends State<GovermentAnnouncementWidge
               margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Column(
                 
-                children: <Widget>[Text('Covid19  Alert make sure to put mask on',textAlign: TextAlign.center,),
-                FlatButton(onPressed: ()=>{}, child:Text('ReadMore',style: TextStyle(fontSize: 10),))                          
+                children: <Widget>[Text('Covid19  Alert make sure to put mask on',textAlign: TextAlign.center,style: TextStyle(color:Colors.red), ),
+                FlatButton(onPressed: ()=>{}, child:Text('ReadMore',style: TextStyle(fontSize: 10,color: Colors.blue),))                          
               ],),
             ),
           ),
