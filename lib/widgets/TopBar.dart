@@ -4,9 +4,10 @@ class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      
       width: double.infinity,
       color: Colors.blue,
-      margin: EdgeInsets.fromLTRB(0,25, 0,0),
+      margin: EdgeInsets.fromLTRB(0,30, 0,0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,            
         children: <Widget>[
