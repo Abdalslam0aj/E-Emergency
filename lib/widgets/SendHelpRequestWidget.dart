@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:E_Emergency/widgets/LocationFinder.dart';
 import 'package:E_Emergency/widgets/countDownTimer.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class SendHelpRequest extends StatefulWidget {
 
 class _SendHelpRequestState extends State<SendHelpRequest> {
   AnimationController controller;
+  String address;
   Widget countDownTimer;
   Timer d;
   bool ended=false;
@@ -24,6 +26,12 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   void initState() {
    d= new Timer(Duration(seconds:5), timeEnd );
     super.initState();
+    setState(() {
+        LocationFinder.getUserAddress().then((add){
+         address=add;
+       });
+    });
+  
   }
   void canselHelpRequest(){
     d.cancel();
@@ -51,9 +59,57 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text("HelpRequest Sent",style: TextStyle(color: Colors.white),),
-           
-
+            Container(
+              margin: EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                gradient: LinearGradient(colors:[Colors.blue[800],Colors.blue[800],Colors.blue[800],Colors.blue[300]])
+              ),
+              height: MediaQuery.of(context).size.height*0.23,
+              width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,                    
+                    children: <Widget>[
+                      Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Icon(Icons.check_circle,color: Colors.green[700],size: 33,),
+                        Flexible(
+                          fit: FlexFit.tight,
+                              child: Container(
+                                margin: EdgeInsets.fromLTRB(5, 20, 5, 5),
+                            child: Text("HelpRequest Sent a Paramedic team is on the way to your location ",
+                            
+                            style: TextStyle(color: Colors.white,fontSize: 23),
+                            textAlign: TextAlign.start,),
+                          ),
+                        ),
+                      ],
+                ),
+                 Container(
+                   height: MediaQuery.of(context).size.height*0.07,
+                   margin: EdgeInsets.all(5),
+                   child: Row(
+                                       
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Location",
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.start,),
+                          IconButton(icon: Icon(Icons.location_on), onPressed: (){}),
+                          Flexible(
+                            fit: FlexFit.tight,
+                                                      child: Text(address==null?"wait...":address,
+                            style: TextStyle(color: Colors.white),
+                            textAlign: TextAlign.start,),
+                          ),
+                        ],
+                      ),
+                 ),
+                    ],
+                  ),
+            ),
         ],),
       ),
       
