@@ -81,19 +81,24 @@ class _GooogleMapCivilianState extends State<GooogleMapCivilian> {
   @override
   Widget build(BuildContext context) {
     
-    return Container(
-      height: 350,
-      width: 400,
-      margin: EdgeInsets.all(10),
-       child:        
-           GoogleMap(             
-             markers: Set<Marker>.of(markers.values),
-              onMapCreated: _onMapCreated,
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 6,)),        
-       
-      
+    return Card(
+      margin: EdgeInsets.all(5),
+      shadowColor: Colors.red,
+      color: Colors.blue,
+          child: Container(
+        height: MediaQuery.of(context).size.height*0.48,
+        width: MediaQuery.of(context).size.height*0.95,
+        margin: EdgeInsets.all(10),
+         child:        
+             GoogleMap(             
+               markers: Set<Marker>.of(markers.values),
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: CameraPosition(
+                  target: _center,
+                  zoom: 6,)),        
+         
+        
+      ),
     );
   }
 }
