@@ -1,7 +1,7 @@
 import 'package:E_Emergency/widgets/AskForHelpWidget.dart';
-import 'package:E_Emergency/widgets/CivilianMainMenu.dart';
+import 'package:E_Emergency/pages/CivilianMainMenu.dart';
 import 'package:E_Emergency/widgets/GovermentAnnouncementWidget.dart';
-import 'package:E_Emergency/widgets/ParamedicMainMenu.dart';
+import 'package:E_Emergency/pages/ParamedicMainMenu.dart';
 import 'package:E_Emergency/widgets/TopBar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +32,8 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(                
+      home: Scaffold(
+                      
         body: Container(
           
           child:  _checkUserTypeCivilian()? CivilianMainMenu() :ParamedicMainMenu(),

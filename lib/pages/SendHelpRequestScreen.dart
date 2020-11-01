@@ -17,7 +17,7 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   Timer timeToSendRequest;
   bool ended=false;
   void _sendHelpRequest() {
-    EEWebService.getTime().then((value) => print(value.statusCode));
+    
 
   }
 

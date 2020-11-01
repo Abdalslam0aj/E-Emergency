@@ -1,4 +1,4 @@
-import 'package:E_Emergency/src/Timer.dart';
+import 'package:E_Emergency/domain/Timer.dart';
 import 'package:flutter/material.dart';
 
 class CountDownTimer extends StatefulWidget {

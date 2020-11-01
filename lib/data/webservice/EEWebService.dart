@@ -1,11 +1,8 @@
 import 'dart:convert';
-import 'dart:html';
-import 'dart:io';
 import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
-class EEWebService implements EEWebServiceInterface{
+class EEWebService implements EEWebServiceInterface {
 static const String URL="http://10.0.2.2:44359/v1/hello";
 
 /*
@@ -28,6 +25,7 @@ static const String URL="http://10.0.2.2:44359/v1/hello";
           }),          
       ).then((httpResponse) {
         if(httpResponse.statusCode==200||httpResponse.statusCode==201||httpResponse.statusCode==202) {
+          //if(httpResponse.body=="true")
           return true;
         } else {
           return false;
@@ -35,6 +33,7 @@ static const String URL="http://10.0.2.2:44359/v1/hello";
       });    
       });
     }
+
   
 
 
