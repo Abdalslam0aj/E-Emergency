@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:E_Emergency/data/webservice/EEWebService.dart';
 import 'package:E_Emergency/widgets/LocationFinder.dart';
 import 'package:E_Emergency/widgets/countDownTimer.dart';
 import 'package:flutter/material.dart';
@@ -13,18 +14,23 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   AnimationController controller;
   String address;
   Widget countDownTimer;
-  Timer d;
+  Timer timeToSendRequest;
   bool ended=false;
+  void _sendHelpRequest() {
+    EEWebService.getTime().then((value) => print(value.statusCode));
+
+  }
 
   void timeEnd(){
     setState(() {
       ended=true;
+      _sendHelpRequest();
       print("sent");
     });
   }
   @override
   void initState() {
-   d= new Timer(Duration(seconds:5), timeEnd );
+   timeToSendRequest= new Timer(Duration(seconds:5), timeEnd );
     super.initState();
     setState(() {
         LocationFinder.getUserAddress().then((add){
@@ -34,7 +40,7 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   
   }
   void canselHelpRequest(){
-    d.cancel();
+    timeToSendRequest.cancel();
     Navigator.pop(context);    
 
   }
@@ -110,6 +116,7 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
                     ],
                   ),
             ),
+            
         ],),
       ),
       
