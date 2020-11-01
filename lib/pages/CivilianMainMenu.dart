@@ -1,5 +1,5 @@
 import 'package:E_Emergency/widgets/GoogleMapCivilian.dart';
-import 'package:E_Emergency/widgets/LocationFinder.dart';
+import 'package:E_Emergency/domain/services/LocationFinder.dart';
 import 'package:E_Emergency/pages/SendHelpRequestScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:E_Emergency/data/webservice/EEWebService.dart';
-import 'package:E_Emergency/widgets/LocationFinder.dart';
+import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
+import 'package:E_Emergency/domain/services/LocationFinder.dart';
 import 'package:E_Emergency/widgets/countDownTimer.dart';
 import 'package:flutter/material.dart';
 
@@ -11,13 +11,16 @@ class SendHelpRequest extends StatefulWidget {
 }
 
 class _SendHelpRequestState extends State<SendHelpRequest> {
-  AnimationController controller;
+  AnimationController controller; 
+  EEWebServiceInterface paramedicService=new EEWebService();
   String address;
   Widget countDownTimer;
   Timer timeToSendRequest;
   bool ended=false;
+  bool requestSent=false;
   void _sendHelpRequest() {
-    
+    LocationFinder.getUserLocation().then((userLocation){});
+   // paramedicService.sendHelpRequest(phoneNumber, latitude, longitude);
 
   }
 
