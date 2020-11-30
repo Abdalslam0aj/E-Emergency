@@ -19,8 +19,12 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   bool ended=false;
   bool requestSent=false;
   void _sendHelpRequest() {
-    LocationFinder.getUserLocation().then((userLocation){});
-   // paramedicService.sendHelpRequest(phoneNumber, latitude, longitude);
+   LocationFinder.getUserLocation().then((userLocation){
+     
+   paramedicService.sendHelpRequest("0780104148", userLocation.latitude.toString(), userLocation.longitude.toString());
+
+   });
+    
 
   }
 
@@ -28,7 +32,7 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
     setState(() {
       ended=true;
       _sendHelpRequest();
-      print("sent");
+     // print("sent");
     });
   }
   @override
