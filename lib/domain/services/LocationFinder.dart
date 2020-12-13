@@ -3,16 +3,7 @@ import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
 
 class LocationFinder {
-
-
-
-
-
-
-
-
-  static getUserLocation() async {
-      String _mylocation;
+  static Future<LocationData> getUserLocation() async {     
       LocationData myLocation;
       String error;
       Location location = new Location();
@@ -29,7 +20,8 @@ class LocationFinder {
         }
         myLocation = null;
       }
-      _mylocation=myLocation.latitude.toString() +',' +myLocation.longitude.toString();
+      
+    
         return myLocation;
       }
 

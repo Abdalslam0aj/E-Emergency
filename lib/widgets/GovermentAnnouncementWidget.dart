@@ -25,11 +25,9 @@ class _GovermentAnnouncementWidgetState extends State<GovermentAnnouncementWidge
           ),
           Flexible(
             fit: FlexFit.tight,
-              child: Container(
-              
+              child: Container(              
               margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: Column(
-                
+              child: Column(                
                 children: <Widget>[Text('Covid19  Alert make sure to put mask on',textAlign: TextAlign.center,style: TextStyle(color:Colors.red), ),
                 FlatButton(onPressed: ()=>{}, child:Text('ReadMore',style: TextStyle(fontSize: 10,color: Colors.blue),))                          
               ],),

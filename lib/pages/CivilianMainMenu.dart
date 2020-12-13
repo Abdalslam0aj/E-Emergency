@@ -1,15 +1,11 @@
 import 'package:E_Emergency/widgets/GoogleMapCivilian.dart';
-import 'package:E_Emergency/widgets/LocationFinder.dart';
-import 'package:E_Emergency/widgets/RequestCard.dart';
-import 'package:E_Emergency/widgets/SendHelpRequestWidget.dart';
+import 'package:E_Emergency/domain/services/LocationFinder.dart';
+import 'package:E_Emergency/pages/SendHelpRequestScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoder/geocoder.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:flutter/services.dart';
-import 'AskForHelpWidget.dart';
-import 'GovermentAnnouncementWidget.dart';
-import 'TopBar.dart';
+import '../widgets/AskForHelpWidget.dart';
+import '../widgets/GovermentAnnouncementWidget.dart';
+import '../widgets/TopBar.dart';
 
 class CivilianMainMenu extends StatefulWidget {
   

@@ -1,6 +1,7 @@
 import 'dart:async';
-
-import 'package:E_Emergency/widgets/LocationFinder.dart';
+import 'package:E_Emergency/data/webservice/EEWebService.dart';
+import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
+import 'package:E_Emergency/domain/services/LocationFinder.dart';
 import 'package:E_Emergency/widgets/countDownTimer.dart';
 import 'package:flutter/material.dart';
 
@@ -10,21 +11,33 @@ class SendHelpRequest extends StatefulWidget {
 }
 
 class _SendHelpRequestState extends State<SendHelpRequest> {
-  AnimationController controller;
+  AnimationController controller; 
+  EEWebServiceInterface paramedicService=new EEWebService();
   String address;
   Widget countDownTimer;
-  Timer d;
+  Timer timeToSendRequest;
   bool ended=false;
+  bool requestSent=false;
+  void _sendHelpRequest() {
+   LocationFinder.getUserLocation().then((userLocation){
+     
+   paramedicService.sendHelpRequest("0780104148", userLocation.latitude.toString(), userLocation.longitude.toString());
+
+   });
+    
+
+  }
 
   void timeEnd(){
     setState(() {
       ended=true;
-      print("sent");
+      _sendHelpRequest();
+     // print("sent");
     });
   }
   @override
   void initState() {
-   d= new Timer(Duration(seconds:5), timeEnd );
+   timeToSendRequest= new Timer(Duration(seconds:5), timeEnd );
     super.initState();
     setState(() {
         LocationFinder.getUserAddress().then((add){
@@ -34,7 +47,7 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   
   }
   void canselHelpRequest(){
-    d.cancel();
+    timeToSendRequest.cancel();
     Navigator.pop(context);    
 
   }
@@ -110,6 +123,7 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
                     ],
                   ),
             ),
+            
         ],),
       ),
       

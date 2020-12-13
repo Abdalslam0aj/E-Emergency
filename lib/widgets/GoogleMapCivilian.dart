@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
-import 'LocationFinder.dart';
+import '../domain/services/LocationFinder.dart';
   // Marker f = Marker(markerId: MarkerId('1'),icon: BitmapDescriptor.defaultMarker, position: LatLng(23.025857, 72.543423));
  // Set<Marker> markers=[Marker(markerId: MarkerId('1'),icon: BitmapDescriptor.defaultMarker, position: LatLng(23.025857, 72.543423))] as Set<Marker>;
   
