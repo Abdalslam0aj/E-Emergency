@@ -34,8 +34,7 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
                       
-        body: Container(
-          
+        body: Container( 
           child:  _checkUserTypeCivilian()? CivilianMainMenu() :ParamedicMainMenu(),
         ),
         
