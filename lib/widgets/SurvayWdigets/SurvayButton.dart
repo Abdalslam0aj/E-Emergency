@@ -29,7 +29,7 @@ class SurvayButton extends StatelessWidget {
             SizedBox(height: 5,),
             Image.asset(buttonImge,height: 45,width: 45,),
             SizedBox(height: 10,),
-            Text(buttonText,textAlign: TextAlign.center,),
+            Text(buttonText,textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
 
           ],
         ),

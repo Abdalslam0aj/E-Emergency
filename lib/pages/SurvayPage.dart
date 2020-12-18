@@ -32,17 +32,17 @@ class _SurvayPageState extends State<SurvayPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                        SurvayButton(buttonText: 'Car Accident',buttonImge: 'assets/wound.png',),
-                      SurvayButton(buttonText: 'Wonded/fracuter',buttonImge: 'assets/wound.png',),
-                      SurvayButton(buttonText: 'Wonded/fracuter',buttonImge: 'assets/wound.png',)
+                      SurvayButton(buttonText: 'Breathing\nDifficulties',buttonImge: 'assets/wound.png',),
+                      SurvayButton(buttonText: 'Abdominal/Back\nPain ',buttonImge: 'assets/wound.png',)
                     ],
                     
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       SurvayButton(buttonText: 'Wonded/fracuter',buttonImge: 'assets/wound.png',),
-                      SurvayButton(buttonText: 'Wonded/fracuter',buttonImge: 'assets/wound.png',),
-                      SurvayButton(buttonText: 'Wonded/fracuter',buttonImge: 'assets/wound.png',)
+                       SurvayButton(buttonText: 'Unconscious adult\n(lifeless) ',buttonImge: 'assets/wound.png',),
+                      SurvayButton(buttonText: 'Second/Third degree burns',buttonImge: 'assets/wound.png',),
+                      SurvayButton(buttonText: 'Other',buttonImge: 'assets/wound.png',)
                     ],
                     
                   )
