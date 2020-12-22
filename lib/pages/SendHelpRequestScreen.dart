@@ -15,26 +15,17 @@ class SendHelpRequest extends StatefulWidget {
 
 class _SendHelpRequestState extends State<SendHelpRequest> {
   AnimationController controller; 
-  EEWebServiceInterface paramedicService=new EEWebService();
-  String address;
+ 
   Widget countDownTimer;
   Timer timeToSendRequest;
   bool ended=false;
   bool requestSent=false;
-  void _sendHelpRequest() {
-   LocationFinder.getUserLocation().then((userLocation){
-     
-   paramedicService.sendHelpRequest("0780104148", userLocation.latitude.toString(), userLocation.longitude.toString());
-
-   });
-    
-
-  }
+  
 
   void timeEnd(){
     setState(() {
       ended=true;
-      _sendHelpRequest();
+     // _sendHelpRequest();
      // print("sent");
     });
   }
@@ -42,11 +33,8 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   void initState() {
    timeToSendRequest= new Timer(Duration(seconds:5), timeEnd );
     super.initState();
-    setState(() {
-        LocationFinder.getUserAddress().then((add){
-         address=add;
-       });
-    });
+  
+    
   
   }
   void canselHelpRequest(){

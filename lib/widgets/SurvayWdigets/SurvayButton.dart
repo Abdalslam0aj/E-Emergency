@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 class SurvayButton extends StatelessWidget {
   String buttonText;
   String buttonImge;
+  Function onTap;
   Color buttonBackGroundColor;
   Color textColor;
 
-  SurvayButton({this.buttonText,this.buttonImge,this.textColor,this.buttonBackGroundColor});
+  SurvayButton({this.buttonText,this.buttonImge,this.textColor,this.buttonBackGroundColor,this.onTap});
 
-
+   
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-          onTap: (){},
+          onTap: (){onTap(buttonText);},
           child: Container(
         margin: EdgeInsets.only(top: 23,left:10,right: 10 ),
         height: MediaQuery.of(context).size.height*0.18,
