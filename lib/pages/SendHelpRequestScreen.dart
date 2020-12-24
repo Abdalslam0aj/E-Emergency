@@ -6,6 +6,8 @@ import 'package:E_Emergency/widgets/SendHelpScreen/ConformationCard.dart';
 import 'package:E_Emergency/widgets/countDownTimer.dart';
 import 'package:flutter/material.dart';
 
+import 'SurvayPage.dart';
+
 class SendHelpRequest extends StatefulWidget {
   @override
   _SendHelpRequestState createState() => _SendHelpRequestState();
@@ -13,26 +15,17 @@ class SendHelpRequest extends StatefulWidget {
 
 class _SendHelpRequestState extends State<SendHelpRequest> {
   AnimationController controller; 
-  EEWebServiceInterface paramedicService=new EEWebService();
-  String address;
+ 
   Widget countDownTimer;
   Timer timeToSendRequest;
   bool ended=false;
   bool requestSent=false;
-  void _sendHelpRequest() {
-   LocationFinder.getUserLocation().then((userLocation){
-     
-   paramedicService.sendHelpRequest("0780104148", userLocation.latitude.toString(), userLocation.longitude.toString());
-
-   });
-    
-
-  }
+  
 
   void timeEnd(){
     setState(() {
       ended=true;
-      _sendHelpRequest();
+     // _sendHelpRequest();
      // print("sent");
     });
   }
@@ -40,11 +33,8 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   void initState() {
    timeToSendRequest= new Timer(Duration(seconds:5), timeEnd );
     super.initState();
-    setState(() {
-        LocationFinder.getUserAddress().then((add){
-         address=add;
-       });
-    });
+  
+    
   
   }
   void canselHelpRequest(){
@@ -67,7 +57,7 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
         body: 
      Container(            
       
-      child: !ended?CountDownTimer(controller,canselHelpRequest) : ConformationCard(),
+      child: !ended? CountDownTimer(controller,canselHelpRequest) : SurvayPage(),//ConformationCard(),
       
     )
     )
