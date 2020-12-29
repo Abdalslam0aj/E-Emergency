@@ -28,18 +28,8 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
   
  // GooogleMapCivilian gg = new GooogleMapCivilian();
  
-   void  _sendHelpRequest() {     
-     print("Testing help Request");
-     //To Do take user location info  
+   void  _sendHelpRequest() {  
      Navigator.push(context, MaterialPageRoute(builder: (context)=>SendHelpRequest()));
-     LocationFinder.getUserLocation().then((location){
-       
-       print(location);
-       setState(() {
-         loc=location.latitude.toString() +',' +location.longitude.toString();       
-       });
-     });         
-    //return true;
   }
   @override
   void initState() {
@@ -99,7 +89,7 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
                              
                 child: Padding(
                   padding: const EdgeInsets.only(top:12,left: 20,right: 20,bottom: 12),
-                  child: Text(loc==""?'no Location sent':loc,style: TextStyle(color: Colors.blue),),
+                  child: Text(loc==""?'wait..':loc,style: TextStyle(color: Colors.blue),),
                 ),
                  ),
                   ],

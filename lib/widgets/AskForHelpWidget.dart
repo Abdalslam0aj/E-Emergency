@@ -25,8 +25,7 @@ class AskForHelpWidget extends StatelessWidget {
         color: Colors.blue,
         child:  Container(
             margin: EdgeInsets.all(40),
-            child: Row(
-              children: [
+            child: 
                 Text(          
                   text,
                   textAlign: TextAlign.center,
@@ -34,8 +33,8 @@ class AskForHelpWidget extends StatelessWidget {
                     color: Colors.black,
                     fontSize: 30,
                     fontWeight: FontWeight.bold),),
-              ],
-            ),
+              
+            
           ),
         ),
       ),

@@ -19,8 +19,12 @@ class _SurvayPageState extends State<SurvayPage> {
   EEWebServiceInterface paramedicService=new EEWebService();
   String address;
   Timer time;
+  bool loading=false;
   finishSurvay(String desc) async {
    // time.cancel();
+    setState(() {
+      loading=true;
+    });
     bool requestSent =await _sendHelpRequest(desc);
     int o=0;
     if (requestSent) {
@@ -53,7 +57,15 @@ class _SurvayPageState extends State<SurvayPage> {
     return MaterialApp(
       home: Scaffold(
         backgroundColor:Colors.black,
-        body: Container(
+        body: loading?Container(
+             margin: EdgeInsets.only(top:190,left: MediaQuery.of(context).size.width*0.44),
+            child: Column(
+              children: [
+                Text('sending',style: TextStyle(color: Colors.blue),),
+                SizedBox(height: 20,),
+                CircularProgressIndicator(),
+              ],
+            )): Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Column(

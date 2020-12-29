@@ -21,7 +21,12 @@ class _HelpSentPageState extends State<HelpSentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(child:ConformationCard(), ),
+      body: Container(child:Column(
+        children: [
+          ConformationCard(),
+          
+        ],
+      ), ),
       
     );
   }
