@@ -1,3 +1,4 @@
+import 'package:E_Emergency/pages/LoginPage.dart';
 import 'package:E_Emergency/widgets/AskForHelpWidget.dart';
 import 'package:E_Emergency/pages/CivilianMainMenu.dart';
 import 'package:E_Emergency/widgets/GovermentAnnouncementWidget.dart';
@@ -35,7 +36,7 @@ class MyAppState extends State<MyApp> {
       home: Scaffold(
                       
         body: Container( 
-          child:  _checkUserTypeCivilian()? CivilianMainMenu() :ParamedicMainMenu(),
+          child:  _checkUserTypeCivilian()? Login() :ParamedicMainMenu(),
         ),
         
       ),
