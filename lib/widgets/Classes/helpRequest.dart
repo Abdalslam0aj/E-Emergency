@@ -1,12 +1,12 @@
 class HelpRequest {
-  int id;
+  var id;
   var latitude;
   var longitude;
-  int civilianPhoneNumber;
+  String civilianPhoneNumber;
   String status;
   String description;
-  var timeOfArrivel;
-  var timeOfEnd;
+  String timeOfArrivel;
+  String timeOfEnd;
   int numberOfHumans;
 
   HelpRequest(
@@ -23,9 +23,9 @@ class HelpRequest {
   factory HelpRequest.fromJson(Map<String, dynamic> json) {
     return HelpRequest(
       id: json['id'],
+      civilianPhoneNumber: json['civilianPhoneNumber'],
       latitude: json['latitude'],
       longitude: json['longitude'],
-      civilianPhoneNumber: json['civilianPhoneNumber'],
       status: json['status'],
       description: json['description'],
       timeOfArrivel: json['timeOfArrivel'],
