@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -10,8 +11,9 @@ import 'Classes/assignedHelpRequest.dart';
 //void main() => runApp(MyApp());
 
 class HelpLocation extends StatefulWidget {
-  HelpLocation({Key key}) : super(key: key);
-
+  HelpRequest helpRequest;
+  HelpLocation(this.helpRequest,);//{Key key}) : super(key: key);
+ 
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -19,9 +21,20 @@ class HelpLocation extends StatefulWidget {
 class _MyAppState extends State<HelpLocation> {
   _MyAppState();
   Completer<GoogleMapController> _controller = Completer();
-
+  HelpRequest help=new HelpRequest();
+  
+  @override
   void initState() {
     super.initState();
+   help=widget.helpRequest;
+   print(help.latitude.toString()+'ssdsss222sd');
+   setState(() {
+      locationOfEmergency = LatLng(
+      help.latitude,
+      help.longitude);
+       print(locationOfEmergency.latitude.toString()+'ssdsd');
+    });
+     print(locationOfEmergency.latitude);
   }
 
   //static const LatLng _center = const LatLng(32.017509, 35.890251);
@@ -34,13 +47,19 @@ class _MyAppState extends State<HelpLocation> {
   LatLng _lastMapPosition;
   LatLng _l2 = LatLng(31.981340, 35.839020);
   List<LatLng> latlng = List();
-
+ LatLng locationOfEmergency ;
   //LatLng _l1;
-  LatLng locationOfEmergency = LatLng(
-      AssignedHelpRequest.assignedHelpRequest.latitude,
-      AssignedHelpRequest.assignedHelpRequest.longitude);
+  
+  
 
   void _onMapCreated(GoogleMapController controller) {
+     print(help.latitude.toString()+'ssdsss333sd');
+    setState(() {
+      locationOfEmergency = LatLng(
+      help.latitude,
+      help.longitude);
+    });
+   
     print(locationOfEmergency);
     _center = locationOfEmergency;
     _lastMapPosition = _center;
@@ -49,13 +68,14 @@ class _MyAppState extends State<HelpLocation> {
     _createMarkers();
     _createPolyLines(
       PointLatLng(31.981340, 35.839020),
-      PointLatLng(AssignedHelpRequest.assignedHelpRequest.latitude,
-          AssignedHelpRequest.assignedHelpRequest.longitude),
+      PointLatLng(help.latitude,
+      help.longitude),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    print(locationOfEmergency.latitude.toString()+'ssdsd');
     return locationOfEmergency == null
         ? Container()
         : Container(

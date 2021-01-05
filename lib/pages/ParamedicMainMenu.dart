@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-
 import 'dart:async';
 
-import 'Classes/apiRequest.dart';
-import 'Classes/helpRequest.dart';
-import 'informationNavigation.dart';
+import 'package:E_Emergency/data/webservice/EEWebService.dart';
+import 'package:E_Emergency/widgets/Classes/apiRequest.dart';
+import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
+import 'package:E_Emergency/widgets/informationNavigation.dart';
+import 'package:flutter/material.dart';
+
 
 //void main() => runApp(ShowComingRequest());
 
@@ -18,10 +19,17 @@ class _IncomingEmergencyRequest extends State<ParamedicMainMenu> {
   static const String _title = 'Incoming Emergency Request';
   //_IncomingEmergencyRequest({Key key}) : super(key: key);
   Future<HelpRequest> helpRequest;
+ @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    helpRequest = ApiRequests().fetchHelpRequest();
+    print('object/////////////////////////////////////');
+    helpRequest= EEWebService().getRequest('0795862772');
+    print('Running/////////////////////////////////////');
+    
+
   }
+  
 
   @override
   Widget build(BuildContext context) {

@@ -25,7 +25,7 @@ class MyAppState extends State<MyApp> {
     _firebaseMessaging.getToken().then((token) {
     print(token); // Print the Token in Console
   });
-    return true;
+    return false;
   }
 
 

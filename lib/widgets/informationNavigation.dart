@@ -23,7 +23,7 @@ class _InformationNavigation extends State<InformationNavigation> {
     print(helpRequest.longitude.toString());
     List<Widget> _navigationPages = <Widget>[
       CivlianInformation(helpRequest),
-      HelpLocation(),
+      HelpLocation(helpRequest),
       CivlianInformation(helpRequest)
     ];
 
