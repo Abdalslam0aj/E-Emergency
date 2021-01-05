@@ -29,14 +29,14 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
  // GooogleMapCivilian gg = new GooogleMapCivilian();
  
    void  _sendHelpRequest() {  
-     Navigator.push(context, MaterialPageRoute(builder: (context)=>SendHelpRequest()));
+     Navigator.pushNamed(context, 'SendHelpRequest');
   }
   @override
   void initState() {
      EEWebServiceInterface paramedicService=new EEWebService();
      paramedicService.checkRequest('0780104148').then((value) {
        if(value)
-       Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpSentPage()));
+       Navigator.pushNamed(context, 'HelpSentPage');       
      } );
     // paramedicService.
     LocationFinder.getUserAddress().then((address){

@@ -33,9 +33,7 @@ class _IncomingEmergencyRequest extends State<ParamedicMainMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: _title,
-        home: Scaffold(
+    return Scaffold(
             appBar: AppBar(title: const Text(_title)),
             body: Center(
               child: Card(
@@ -73,11 +71,11 @@ class _IncomingEmergencyRequest extends State<ParamedicMainMenu> {
                   },
                 ),
               ),
-            )));
+            ));
   }
 
   goToHelpRequestInfoPage(BuildContext context, HelpRequest hr) {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => InformationNavigation(hr)));
+    Navigator.pushNamed(context, 'InformationNavigation',arguments: hr);
+   
   }
 }

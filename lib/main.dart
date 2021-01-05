@@ -7,6 +7,8 @@ import 'package:E_Emergency/widgets/TopBar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+import 'domain/services/route_generator_gard.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -33,13 +35,14 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-                      
-        body: Container( 
-          child:  _checkUserTypeCivilian()? Login() :ParamedicMainMenu(),
-        ),
+      onGenerateRoute: RouteGenerator.generateRoute,
+      initialRoute: 'MainMenu',      
+     // home: Scaffold(
+    //    body: Container( 
+    //      child:  _checkUserTypeCivilian()? Login() :ParamedicMainMenu(),
+      //  ),
         
-      ),
+    //  ),
     );
     
   }

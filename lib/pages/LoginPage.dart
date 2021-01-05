@@ -66,7 +66,7 @@ class Login extends StatelessWidget {
                   LoginModel loginModel=new LoginModel();
                   loginModel.loginUser(phoneNumber.value.text, userPassword.value.text).then((value) {
                     if(value) {
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>CivilianMainMenu()));
+                      Navigator.pushNamed(context, 'MainMenu');                      
                     }
                   });
                 },
@@ -84,8 +84,8 @@ class Login extends StatelessWidget {
                       color: Colors.white,
                       fontSize: 15)),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Register()));
+                Navigator.pushNamed(context, 'Register');
+             
               }),
         ],
       ),

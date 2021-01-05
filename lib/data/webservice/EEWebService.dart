@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:E_Emergency/classes/User.dart';
 import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
 import 'package:http/io_client.dart';
 import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
@@ -244,7 +245,7 @@ static const String URL="https://192.168.1.31:44390/";
 
    }
 
-   Future<bool> login(String phoneNumber,String password,String token) async {
+   Future<User> login(String phoneNumber,String password,String token) async {
      try{
        HttpClient client = new HttpClient();
         client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
@@ -272,15 +273,15 @@ static const String URL="https://192.168.1.31:44390/";
         if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
           //if(httpResponse.body=="true")
            print("sent correctly");
-          return true;
+          return  User.fromJson(jsonDecode(response.body));
          
         } else {
            print("not sent"+response.statusCode.toString());
-          return false;
+          return User.fromJson(jsonDecode(response.body));
         }     
      }catch(e){
        print(e);
-       return false;
+       return null;
      }
  
 

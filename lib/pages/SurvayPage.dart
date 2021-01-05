@@ -28,7 +28,7 @@ class _SurvayPageState extends State<SurvayPage> {
     bool requestSent =await _sendHelpRequest(desc);
     int o=0;
     if (requestSent) {
-       Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpSentPage()));
+      Navigator.pushNamed(context, 'HelpSentPage');     
      
     } else {
       print("loopp");
