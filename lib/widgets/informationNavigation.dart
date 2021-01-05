@@ -20,9 +20,10 @@ class _InformationNavigation extends State<InformationNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    print(helpRequest.longitude.toString());
     List<Widget> _navigationPages = <Widget>[
       CivlianInformation(helpRequest),
-      HelpLocation(LatLng(helpRequest.latitude, helpRequest.longitude)),
+      HelpLocation(),
       CivlianInformation(helpRequest)
     ];
 
