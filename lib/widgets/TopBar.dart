@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return    
+       Container(
       
       width: double.infinity,
       color: Colors.blue,

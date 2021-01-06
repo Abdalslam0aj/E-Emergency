@@ -13,8 +13,7 @@ class LoginModel {
     
     User loged= await service.login(phoneNumber, password, token);    
     sharedPreferences.setString('logedInUser',loged.userType.toString());
-    sharedPreferences.setString('phoneNumber',loged.phoneNumber.toString());
-    
+    sharedPreferences.setString('phoneNumber',loged.phoneNumber.toString());    
     
     return true;
   }
