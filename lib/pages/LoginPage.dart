@@ -1,12 +1,22 @@
 import 'package:E_Emergency/domain/services/LoginModel.dart';
 import 'package:E_Emergency/pages/CivilianMainMenu.dart';
+import 'package:E_Emergency/widgets/lodingDialog.dart';
 import 'package:flutter/material.dart';
 
 import 'RegisterPage.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final phoneNumber = TextEditingController();
+
   final userPassword = TextEditingController();
+
+  String wrongPhonePass='';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +24,20 @@ class Login extends StatelessWidget {
       backgroundColor: Colors.black,
       body: Column(
         children: <Widget>[
+          SizedBox(
+            height: 25,
+          ),
           Icon(Icons.account_circle, color: Colors.lightBlue, size: 200),
+          wrongPhonePass!=''?
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.info_outline_rounded, color: Colors.red, size: 15),
+              SizedBox(width: 10,),
+              Text(wrongPhonePass,style: TextStyle(color: Colors.red),),
+            ],
+          ):Text(''),
           SizedBox(
             height: 20,
           ),
@@ -62,11 +85,18 @@ class Login extends StatelessWidget {
                   style: TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  
+                  LoadingDialog.showLodingDialog(context);
                   LoginModel loginModel=new LoginModel();
                   loginModel.loginUser(phoneNumber.value.text, userPassword.value.text).then((value) {
                     if(value) {
                       Navigator.pushNamed(context, 'MainMenu');                      
+                    } else {
+                      Navigator.pop(context);
+                      FocusScope.of(context).requestFocus(FocusNode());
+                      setState(() {
+                        wrongPhonePass='Phone number or password is not vaild!';
+                      });
+
                     }
                   });
                 },

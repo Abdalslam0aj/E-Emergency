@@ -34,6 +34,22 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging fb=new FirebaseMessaging();
+    fb.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        
+      },
+     //onBackgroundMessage: myBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+       
+      },
+    );
     return MaterialApp(
       onGenerateRoute: RouteGenerator.generateRoute,
       initialRoute: 'MainMenu',      

@@ -20,7 +20,7 @@ void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     HelpRequest hewlp =HelpRequest(civilianPhoneNumber: '089',description: 'ss',latitude: '31.232323',longitude: '30.223232',id: '1',numberOfHumans: 1,status: 'av');
     // Build our app and trigger a frame.
-    await tester.pumpWidget(HelpLocation(hewlp));
+    await tester.pumpWidget(HelpLocation());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

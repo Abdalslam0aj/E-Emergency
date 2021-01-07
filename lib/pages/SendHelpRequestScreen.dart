@@ -51,8 +51,8 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
   
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return 
+      Scaffold(
         backgroundColor:Colors.black,
         body: 
      Container(            
@@ -60,7 +60,7 @@ class _SendHelpRequestState extends State<SendHelpRequest> {
       child: !ended? CountDownTimer(controller,canselHelpRequest) : SurvayPage(),//ConformationCard(),
       
     )
-    )
+    
     );
   }
 }

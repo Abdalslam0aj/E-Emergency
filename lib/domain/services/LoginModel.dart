@@ -11,16 +11,21 @@ class LoginModel {
     String token = await TokenMaker.getNotificationToken();
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     
-    User loged= await service.login(phoneNumber, password, token);    
+    User loged= await service.login(phoneNumber, password, token);
+    if(loged.phoneNumber!=null && loged.userType!=null) {   
     sharedPreferences.setString('logedInUser',loged.userType.toString());
-    sharedPreferences.setString('phoneNumber',loged.phoneNumber.toString());    
+    sharedPreferences.setString('phoneNumber',loged.phoneNumber.toString());
+     return true;    
+    } else {
+      return false;
+    }
     
-    return true;
+   
   }
 
   userLogedIn() async {
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    
+   
     if(sharedPreferences.getString('logedInUser')!=null)
     return true;
     else 
@@ -29,12 +34,13 @@ class LoginModel {
 
   userType() async {
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    
+   
     if(sharedPreferences.getString('logedInUser')=='paramedic')
     return true;
     else 
     return false;
   }
+
   static Future<void> logOutUser() async {
      SharedPreferences sh= await SharedPreferences.getInstance();
      await sh.setString('logedInUser', null);

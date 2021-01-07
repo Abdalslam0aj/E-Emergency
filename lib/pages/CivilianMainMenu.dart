@@ -60,7 +60,9 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
   @override
   Widget build(BuildContext context) {
     
-    return Container(color: Colors.black,          
+    return Scaffold(
+      body:
+    Container(color: Colors.black,          
           child:Column(
             children: <Widget>[
               TopBar(),
@@ -96,6 +98,7 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
                 ),          
               ],
               ),
+    )
             
     );
   }
