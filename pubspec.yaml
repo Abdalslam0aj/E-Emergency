@@ -39,6 +39,12 @@ dependencies:
   socket_io_client: ^0.9.12
   intl: ^0.16.1
   shared_preferences: ^0.5.12+4
+  flutter_launcher_icons: "^0.8.1"
+
+flutter_icons:
+  image_path: "assets/EmergencyLogo.png" 
+  android: true
+  ios: true
 
 dev_dependencies:
   flutter_test:
