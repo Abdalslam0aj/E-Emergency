@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:E_Emergency/classes/User.dart';
+import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
 import 'package:http/io_client.dart';
 import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
 import 'package:http/http.dart' as http;
@@ -199,7 +201,7 @@ static const String URL="https://192.168.1.31:44390/";
 
    }
 
-   Future<bool> getRequest(String phoneNumber) async {
+   Future<HelpRequest> getRequest(String phoneNumber) async {
      try{
        HttpClient client = new HttpClient();
         client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
@@ -225,15 +227,17 @@ static const String URL="https://192.168.1.31:44390/";
         if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
           //if(httpResponse.body=="true")
            print("sent correctly");
-          return true;
+           
+           
+          return HelpRequest.fromJson(jsonDecode(response.body));
          
         } else {
            print("not sent"+response.statusCode.toString());
-          return false;
+          return HelpRequest.fromJson(jsonDecode(response.body));
         }     
      }catch(e){
        print(e);
-       return false;
+       return null;
      }
  
 
@@ -241,7 +245,7 @@ static const String URL="https://192.168.1.31:44390/";
 
    }
 
-   Future<bool> login(String phoneNumber,String password,String token) async {
+   Future<User> login(String phoneNumber,String password,String token) async {
      try{
        HttpClient client = new HttpClient();
         client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
@@ -269,15 +273,15 @@ static const String URL="https://192.168.1.31:44390/";
         if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
           //if(httpResponse.body=="true")
            print("sent correctly");
-          return true;
+          return  User.fromJson(jsonDecode(response.body));
          
         } else {
            print("not sent"+response.statusCode.toString());
-          return false;
+          return User.fromJson(jsonDecode(response.body));
         }     
      }catch(e){
        print(e);
-       return false;
+       return null;
      }
  
 
@@ -315,12 +319,15 @@ static const String URL="https://192.168.1.31:44390/";
 
     String reply = await response.body.toString();
     print("sent ");
-    print(response.body);     
+    print(response.body);
+    String boolAsString;
+    boolAsString=response.body.toString();
+    bool b = boolAsString == 'true';      
      
         if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
           //if(httpResponse.body=="true")
            print("sent correctly");
-          return true;
+          return b;
          
         } else {
            print("not sent"+response.statusCode.toString());

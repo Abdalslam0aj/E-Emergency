@@ -1,5 +1,7 @@
+import 'package:E_Emergency/classes/User.dart';
 import 'package:E_Emergency/data/webservice/EEWebService.dart';
 import 'package:E_Emergency/domain/services/TokenMaker.dart';
+import 'package:E_Emergency/domain/services/route_generator_gard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginModel {
@@ -9,15 +11,44 @@ class LoginModel {
     String token = await TokenMaker.getNotificationToken();
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     
-    bool loged= await service.login(phoneNumber, password, token);    
-    sharedPreferences.setBool('logedIn',loged);
+    User loged= await service.login(phoneNumber, password, token);
+    if(loged.phoneNumber!=null && loged.userType!=null) {   
+    sharedPreferences.setString('logedInUser',loged.userType.toString());
+    sharedPreferences.setString('phoneNumber',loged.phoneNumber.toString());
+     return true;    
+    } else {
+      return false;
+    }
     
-    return loged;
+   
   }
 
   userLogedIn() async {
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
-    return sharedPreferences.getBool('logedIn');
+   
+    if(sharedPreferences.getString('logedInUser')!=null)
+    return true;
+    else 
+    return false;
+  }
+
+  userType() async {
+    SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
+   
+    if(sharedPreferences.getString('logedInUser')=='paramedic')
+    return true;
+    else 
+    return false;
+  }
+
+  static Future<void> logOutUser() async {
+     SharedPreferences sh= await SharedPreferences.getInstance();
+     await sh.setString('logedInUser', null);
+     sh.setString('phoneNumber',null);
+     RouteGenerator.userAuth=false;
+    
+     
+     
   }
 
 

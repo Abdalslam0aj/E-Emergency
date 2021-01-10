@@ -1,14 +1,17 @@
+import 'package:E_Emergency/domain/services/LoginModel.dart';
 import 'package:flutter/material.dart';
 
 class TopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return    
+       Container(
       
       width: double.infinity,
       color: Colors.blue,
       margin: EdgeInsets.fromLTRB(0,30, 0,0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,            
         children: <Widget>[
           Container(        
@@ -30,7 +33,11 @@ class TopBar extends StatelessWidget {
                 child: IconButton(
                   
                   icon: Icon(Icons.person,color: Colors.black,),
-                   onPressed: () =>{})),
+                   onPressed: () =>{
+                     LoginModel.logOutUser().then((value) {
+                       Navigator.pushNamed(context, 'Login');
+                     })
+                   })),
           
         ],
         ),

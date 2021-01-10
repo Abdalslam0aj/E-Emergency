@@ -5,6 +5,7 @@ import 'package:E_Emergency/domain/services/LocationFinder.dart';
 import 'package:E_Emergency/pages/SendHelpRequestScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/AskForHelpWidget.dart';
 import '../widgets/GovermentAnnouncementWidget.dart';
 import '../widgets/TopBar.dart';
@@ -29,14 +30,20 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
  // GooogleMapCivilian gg = new GooogleMapCivilian();
  
    void  _sendHelpRequest() {  
-     Navigator.push(context, MaterialPageRoute(builder: (context)=>SendHelpRequest()));
+     Navigator.pushNamed(context, 'SendHelpRequest');
   }
   @override
   void initState() {
+    SharedPreferences sg;
+    SharedPreferences.getInstance().then((sp) {
+      String phoneNumber =sp.getString('phoneNumber');
+      print(phoneNumber);
+
+    
      EEWebServiceInterface paramedicService=new EEWebService();
-     paramedicService.checkRequest('0780104148').then((value) {
+     paramedicService.checkRequest(phoneNumber).then((value) {
        if(value)
-       Navigator.push(context, MaterialPageRoute(builder: (context)=>HelpSentPage()));
+       Navigator.pushNamed(context, 'HelpSentPage');       
      } );
     // paramedicService.
     LocationFinder.getUserAddress().then((address){
@@ -44,6 +51,7 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
          loc=address;
       });
      
+     });
     });
     super.initState();
   }
@@ -60,7 +68,9 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
   @override
   Widget build(BuildContext context) {
     
-    return Container(color: Colors.black,          
+    return Scaffold(
+      body:
+    Container(color: Colors.black,          
           child:Column(
             children: <Widget>[
               TopBar(),
@@ -96,6 +106,7 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
                 ),          
               ],
               ),
+    )
             
     );
   }
