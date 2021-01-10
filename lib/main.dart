@@ -4,9 +4,12 @@ import 'package:E_Emergency/pages/CivilianMainMenu.dart';
 import 'package:E_Emergency/widgets/GovermentAnnouncementWidget.dart';
 import 'package:E_Emergency/pages/ParamedicMainMenu.dart';
 import 'package:E_Emergency/widgets/TopBar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+import 'domain/services/firebaseFCM.dart';
 import 'domain/services/route_generator_gard.dart';
 
 void main() {
@@ -22,11 +25,35 @@ class MyApp extends StatefulWidget {
 
 
 class MyAppState extends State<MyApp> {
-  bool _checkUserTypeCivilian(){
+   static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  Future<bool> _checkUserTypeCivilian() async {
+    await Firebase.initializeApp();
     final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-    _firebaseMessaging.getToken().then((token) {
-    print(token); // Print the Token in Console
-  });
+   String phoneNumber="+962780104148";
+     
+     FirebaseAuth auth= FirebaseAuth.instance;
+     print('code  here  ?? ?? ?? ?? ?? ');
+      auth.verifyPhoneNumber(
+       
+
+          timeout: const Duration(seconds: 59),
+          phoneNumber: phoneNumber,
+          verificationCompleted: (PhoneAuthCredential credential){
+            
+           // _smsCode=credential.smsCode;
+          },           
+          verificationFailed: (FirebaseAuthException e){
+            if(e.code=='invalid-phone-number') {
+              //To Do Alert User phone Number is invaild
+            }
+          }, 
+          codeSent: (String verificationId, int resendToken)  {
+            print('this is the verfication id = '+verificationId);
+            
+          
+          },
+          codeAutoRetrievalTimeout: (va){});
+    
     return false;
   }
 
@@ -34,31 +61,14 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseMessaging fb=new FirebaseMessaging();
-    fb.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
-        
-      },
-     //onBackgroundMessage: myBackgroundMessageHandler,
-      onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-       
-      },
-    );
+  
+    final pushNotificationService = PushNotificationService(_firebaseMessaging,context);
+    pushNotificationService.initialise();
+    
+    
     return MaterialApp(
       onGenerateRoute: RouteGenerator.generateRoute,
-      initialRoute: 'MainMenu',      
-     // home: Scaffold(
-    //    body: Container( 
-    //      child:  _checkUserTypeCivilian()? Login() :ParamedicMainMenu(),
-      //  ),
-        
-    //  ),
+      initialRoute: 'MainMenu', 
     );
     
   }

@@ -16,7 +16,8 @@ class RouteGenerator {
   static  bool userType=true;//flase civilian ||| true paramedic 
   
 static Route<dynamic> generateRoute(RouteSettings settings)  {
-  final args = settings.arguments; 
+  final args = settings.arguments;
+   
   print(userAuth.toString()+'checked route');
 // LoginScreen(model: new MainModel(),);
   

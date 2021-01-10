@@ -319,12 +319,15 @@ static const String URL="https://192.168.1.31:44390/";
 
     String reply = await response.body.toString();
     print("sent ");
-    print(response.body);     
+    print(response.body);
+    String boolAsString;
+    boolAsString=response.body.toString();
+    bool b = boolAsString == 'true';      
      
         if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
           //if(httpResponse.body=="true")
            print("sent correctly");
-          return true;
+          return b;
          
         } else {
            print("not sent"+response.statusCode.toString());
