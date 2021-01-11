@@ -131,7 +131,8 @@ class _RegisterState extends State<Register> {
                       ],
                     ),
                     SizedBox(height: 10,),
-                    TextField(               
+                    TextField(
+                      obscureText: true,                 
                      decoration: InputDecoration(labelText:'Password',labelStyle: TextStyle(color: Colors.white),
                             enabledBorder: const OutlineInputBorder(
                                 borderSide: const BorderSide(
@@ -145,7 +146,8 @@ class _RegisterState extends State<Register> {
                      controller: password,
                      keyboardType:  TextInputType.number,),
                       SizedBox(height: 10,),
-                    TextField(               
+                    TextField(
+                     obscureText: true,               
                      decoration: InputDecoration(labelText:'confirem password',labelStyle: TextStyle(color: Colors.white),
                             enabledBorder: const OutlineInputBorder(
                                 borderSide: const BorderSide(
@@ -187,6 +189,7 @@ class _RegisterState extends State<Register> {
                     RegisterModel registerModel=new RegisterModel(
                       phoneNumber: phoneNumberC.text.toString(),
                       password: password.text.toString(),
+                      cpassword: cPassword.text.toString(),
                       bloodType: dropdownValue.toString(),
                       userDate: pickedDate,
                       nationalID: nationalID.text.toString(),
@@ -194,7 +197,8 @@ class _RegisterState extends State<Register> {
                       fName: fNameC.text.toString(),
                       lName: lNameC.text.toString(),
                     );
-                    await registerModel.dataVailed(context);
+                   bool registerd= await registerModel.dataVailed(context);
+                   print(registerd);
                   },child: Text('Register',),
                   shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30)),

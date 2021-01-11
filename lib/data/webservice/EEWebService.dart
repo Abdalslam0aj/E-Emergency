@@ -301,13 +301,13 @@ static const String URL="https://192.168.1.31:44390/";
         'NIDN': nidn,
         'FullName':fullName,
         'bloodType':bloodType,
-        'birthDate':birthDate,
+        'birthDate':birthDate.toString(),
         'email':email,
         'medicalCondition':medicalCondition,
         'notificationToken':notificationToken,
  
       };
-      
+      print(map);
  
    var head={
         'Content-Type': 'application/json; charset=UTF-8'

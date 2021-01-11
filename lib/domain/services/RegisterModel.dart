@@ -12,6 +12,7 @@ class RegisterModel {
   final String lName; 
   final String nationalID;   
   final String password;
+  final String cpassword;
   final String email;
 
 
@@ -21,13 +22,14 @@ class RegisterModel {
    this.lName,
    this.nationalID,
    this.password,
+   this.cpassword,
    this.email,
    this.userDate,
    this.bloodType   
   });
 
   dataVailed(BuildContext ctx) async {
-    if(phoneNumber!=''&&fName!=''&&lName!=''&&nationalID!=''&&password!=''&&email!=''&&userDate!=null&&bloodType!='') {
+    if(phoneNumber!=''&&fName!=''&&lName!=''&&nationalID!=''&&password!=''&&email!=''&&userDate!=null&&bloodType!=''&&password==cpassword) {
       await _registerUser();
 
     } else {
@@ -35,11 +37,20 @@ class RegisterModel {
     }
   }
 
+  isnumber(String number) {
+    if(number.length==10) {
+       
+
+    }
+
+  }
+
   Future<bool> _registerUser() async {
     EEWebService webService= new EEWebService();
     String fullName=fName+' '+lName;
     String token = await TokenMaker.getNotificationToken();
-    webService.register(phoneNumber, password, nationalID, fullName, bloodType, userDate, email, '',token ).then((value) {
+    print(userDate);    
+    webService.register(phoneNumber, password, nationalID, fullName, bloodType, userDate, email, 'diabetes',token ).then((value) {
      return value;
     });
     
