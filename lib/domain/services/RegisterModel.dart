@@ -1,6 +1,7 @@
 import 'package:E_Emergency/data/webservice/EEWebService.dart';
 import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
 import 'package:E_Emergency/domain/services/TokenMaker.dart';
+import 'package:E_Emergency/widgets/DialogFactory.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,10 +31,13 @@ class RegisterModel {
 
   dataVailed(BuildContext ctx) async {
     if(phoneNumber!=''&&fName!=''&&lName!=''&&nationalID!=''&&password!=''&&email!=''&&userDate!=null&&bloodType!=''&&password==cpassword) {
-      await _registerUser();
+      return await _registerUser();
+      
 
     } else {
-        //alert dialog
+    
+        DialogFactory.showRegisterDialog(ctx, 'Fill all required data', 'one of the requierd data is missing or empty');
+          return false;
     }
   }
 

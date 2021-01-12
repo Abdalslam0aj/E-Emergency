@@ -21,7 +21,7 @@ static const String URL="https://192.168.1.31:44390/";
 *returns a true bool if the request is done 
 *false other wise
 */
-   Future<bool> sendHelpRequest(String phoneNumber,String latitude,String longitude,String desc) async {
+   Future<bool> sendHelpRequest(String phoneNumber,String latitude,String longitude,String desc,int numberOfHumans) async {
      try{
        HttpClient client = new HttpClient();
         client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
@@ -33,6 +33,7 @@ static const String URL="https://192.168.1.31:44390/";
          'longitude': longitude,
          'status':"Mcok",
          'description':desc,
+         'numberOfHumans':numberOfHumans.toString(),
       };
       
  
