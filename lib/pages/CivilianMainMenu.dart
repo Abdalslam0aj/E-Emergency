@@ -67,6 +67,15 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
 
   @override
   Widget build(BuildContext context) {
+    if(loc==''){
+       LocationFinder.getUserAddress().then((address){
+      setState(() {
+         loc=address;
+      });
+     
+     });
+
+    }
     
     return Scaffold(
       body:

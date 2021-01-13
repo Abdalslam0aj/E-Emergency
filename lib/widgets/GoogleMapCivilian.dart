@@ -80,6 +80,9 @@ class _GooogleMapCivilianState extends State<GooogleMapCivilian> {
 
   @override
   Widget build(BuildContext context) {
+    if(markers.isEmpty){
+      _add();
+    }
     
     return Card(
       margin: EdgeInsets.all(5),
