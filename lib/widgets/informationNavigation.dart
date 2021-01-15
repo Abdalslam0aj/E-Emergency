@@ -20,10 +20,11 @@ class _InformationNavigation extends State<InformationNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    // LatLng lng = Latlng(helpRequest.latitude, helpRequest.longitude);
     print(helpRequest.longitude.toString());
     List<Widget> _navigationPages = <Widget>[
       CivlianInformation(helpRequest),
-      HelpLocation(),
+      HelpLocation(helpRequest.latitude, helpRequest.longitude),
       CivlianInformation(helpRequest)
     ];
 
@@ -35,18 +36,19 @@ class _InformationNavigation extends State<InformationNavigation> {
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              label: 'Location',
-              backgroundColor: Colors.blue),
-          BottomNavigationBarItem(
               icon: Icon(Icons.perm_device_information),
               label: 'Information',
+              backgroundColor: Colors.blue),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.map),
+              label: 'Location',
               backgroundColor: Colors.blue),
           BottomNavigationBarItem(
               icon: Icon(Icons.check),
               label: 'Status',
               backgroundColor: Colors.blue)
         ],
+        selectedItemColor: Colors.blue,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
