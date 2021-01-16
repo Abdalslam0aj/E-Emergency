@@ -112,6 +112,7 @@ class _GovermentAnnouncementWidgetState extends State<GovermentAnnouncementWidge
               child: Column(                
                 children: <Widget>[Text(wAnnouncement,textAlign: TextAlign.center,style: TextStyle(color:Colors.red), ),
                 FlatButton(onPressed: (){
+                  if(_announcemnet!=null)
                   readMore(context);
 
 
