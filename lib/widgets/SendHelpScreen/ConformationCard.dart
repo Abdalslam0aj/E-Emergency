@@ -36,6 +36,7 @@ class _ConformationCardState extends State<ConformationCard> {
             Container(
               margin: EdgeInsets.all(5),
               decoration: BoxDecoration(
+                 boxShadow: [BoxShadow(color: Colors.black,blurRadius: 5,offset: Offset(0, 1),spreadRadius: 0.5)],
                 borderRadius: BorderRadius.circular(5),
                 gradient: LinearGradient(colors:[Colors.blue[800],Colors.blue[800],Colors.blue[800],Colors.blue[300]])
               ),

@@ -215,6 +215,51 @@ class EEWebService implements EEWebServiceInterface {
 
    }
 
+   Future<HelpRequest> updateDescription(String phoneNumber,String description) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
+
+     Map<dynamic,dynamic> map = { 
+         'civilianPhoneNumber': phoneNumber,
+         'description':description,
+      };
+      
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'UpdateDescription'), body: map,);
+  
+
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);     
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+           
+           
+          return HelpRequest.fromJson(jsonDecode(response.body));
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return HelpRequest.fromJson(jsonDecode(response.body));
+        }     
+     }catch(e){
+       print(e);
+       return null;
+     }
+ 
+
+  
+
+   }
+
    Future<HelpRequest> getMyRequest(String phoneNumber) async {
      try{
        HttpClient client = new HttpClient();
