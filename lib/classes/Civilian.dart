@@ -21,9 +21,9 @@ class Civilian {
       birthDate: DateTime.tryParse(json['birthDate']),
       bloodType: json['bloodType'],
       email: json['email'],
-      fullName: json['FullName'],
+      fullName: json['fullName'],
       medicalCondition: json['medicalCondition'],
-      nIDN: json['NIDN'],
+      nIDN: json['nidn'],
       notificationToken: json['notificationToken'],
       password: json['password'],
     );
