@@ -1,6 +1,7 @@
 import 'package:E_Emergency/domain/services/LocationFinder.dart';
 import 'package:E_Emergency/domain/services/firebaseFCM.dart';
 import 'package:E_Emergency/widgets/SendHelpScreen/ConformationCard.dart';
+import 'package:E_Emergency/widgets/SendHelpScreen/TimeToArive.dart';
 import 'package:flutter/material.dart';
 
 class HelpSentPage extends StatefulWidget {
@@ -26,6 +27,9 @@ class _HelpSentPageState extends State<HelpSentPage> {
       body: Container(child:Column(
         children: [
           ConformationCard(),
+          TimeToArive(),
+          
+          
           
         ],
       ), ),
