@@ -1,6 +1,6 @@
 import 'package:E_Emergency/domain/services/LoginModel.dart';
 import 'package:E_Emergency/pages/CivilianMainMenu.dart';
-import 'package:E_Emergency/widgets/lodingDialog.dart';
+import 'package:E_Emergency/widgets/DialogFactory.dart';
 import 'package:flutter/material.dart';
 
 import 'RegisterPage.dart';
@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
                   style: TextStyle(fontSize: 20),
                 ),
                 onPressed: () {
-                  LoadingDialog.showLodingDialog(context);
+                  DialogFactory.showLodingDialog(context);
                   LoginModel loginModel=new LoginModel();
                   loginModel.loginUser(phoneNumber.value.text, userPassword.value.text).then((value) {
                     if(value) {

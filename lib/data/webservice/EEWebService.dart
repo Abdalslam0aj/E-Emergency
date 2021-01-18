@@ -20,6 +20,7 @@ class EEWebService implements EEWebServiceInterface {
 *returns a true bool if the request is done 
 *false other wise
 */
+<<<<<<< HEAD
   Future<bool> sendHelpRequest(String phoneNumber, String latitude,
       String longitude, String desc) async {
     try {
@@ -33,6 +34,26 @@ class EEWebService implements EEWebServiceInterface {
         'longitude': longitude,
         'status': "Mcok",
         'description': desc,
+=======
+   Future<bool> sendHelpRequest(String phoneNumber,String latitude,String longitude,String desc,int numberOfHumans) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
+
+     Map<dynamic,dynamic> map = { 
+         'civilianPhoneNumber': phoneNumber,
+         'latitude': latitude,
+         'longitude': longitude,
+         'status':"Mcok",
+         'description':desc,
+         'numberOfHumans':numberOfHumans.toString(),
+      };
+      
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+>>>>>>> 444609a (survay finished)
       };
 
       var head = {'Content-Type': 'application/json; charset=UTF-8'};
