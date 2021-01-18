@@ -1,3 +1,4 @@
+import 'package:E_Emergency/classes/Civilian.dart';
 import 'package:E_Emergency/data/webservice/EEWebService.dart';
 import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
 import 'package:E_Emergency/domain/services/TokenMaker.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 class RegisterModel {
   DateTime userDate;
   String bloodType;
+  String medicalcondition;
   final String phoneNumber;
   final String fName;
   final String lName; 
@@ -26,8 +28,11 @@ class RegisterModel {
    this.cpassword,
    this.email,
    this.userDate,
-   this.bloodType   
+   this.bloodType,
+   this.medicalcondition   
   });
+
+  
 
   dataVailed(BuildContext ctx) async {
     if(phoneNumber!=''&&fName!=''&&lName!=''&&nationalID!=''&&password!=''&&email!=''&&userDate!=null&&bloodType!=''&&password==cpassword) {
@@ -54,11 +59,25 @@ class RegisterModel {
     String fullName=fName+' '+lName;
     String token = await TokenMaker.getNotificationToken();
     print(userDate);    
-    webService.register(phoneNumber, password, nationalID, fullName, bloodType, userDate, email, 'diabetes',token ).then((value) {
+    webService.register(phoneNumber, password, nationalID, fullName, bloodType, userDate, email, 'none',token ).then((value) {
      return value;
     });
     
 
+  }
+
+  Future<bool> updateUser(Civilian civilian) async {
+    EEWebService webService= new EEWebService();
+    String fullName=fName+' '+lName;
+    String token = await TokenMaker.getNotificationToken();
+     bool c;
+    if(civilian.password == password){
+      c=await webService.updateCivilianProfile(phoneNumber, cpassword, nationalID, fullName, bloodType, userDate, email, medicalcondition , token);
+    } else if(password=='') {
+       c=await webService.updateCivilianProfile(phoneNumber, civilian.password, nationalID, fullName, bloodType, userDate, email, medicalcondition , token);
+    } 
+   
+    return c;
   }
 
  

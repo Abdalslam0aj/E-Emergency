@@ -1,27 +1,27 @@
+import 'package:E_Emergency/classes/Civilian.dart';
 import 'package:E_Emergency/domain/services/LoginModel.dart';
 import 'package:E_Emergency/domain/services/RegisterModel.dart';
 import 'package:E_Emergency/pages/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class Register extends StatefulWidget {
+class EditInfoPage extends StatefulWidget {
+  Civilian civilian;
+  EditInfoPage(this.civilian);
   @override
-  _RegisterState createState() => _RegisterState(); 
+  _EditInfoPageState createState() => _EditInfoPageState(); 
 }
 
-class _RegisterState extends State<Register> {
+class _EditInfoPageState extends State<EditInfoPage> {
   DateTime pickedDate;
   String dropdownValue;
   final phoneNumberC = TextEditingController();
-  final fNameC = TextEditingController();
-  final lNameC = TextEditingController();
   final nationalID = TextEditingController();
-
   final bloodType = TextEditingController();
   final password = TextEditingController();
-  final cPassword = TextEditingController();
+  final newPassword = TextEditingController();
   final email = TextEditingController();
-  final ageC = TextEditingController();
+  final medicalConditonC = TextEditingController();
   void _showDatePicker() {
     showDatePicker(
             context: context,
@@ -36,6 +36,17 @@ class _RegisterState extends State<Register> {
         pickedDate = picked;
       });
     });
+  }
+
+  @override
+  void initState() {
+    widget.civilian;
+       phoneNumberC.text=widget.civilian.phoneNumber;
+       dropdownValue=widget.civilian.bloodType;
+       pickedDate=widget.civilian.birthDate;
+       email.text=widget.civilian.email;
+       medicalConditonC.text=widget.civilian.medicalCondition;
+    super.initState();
   }
 
   @override
@@ -69,39 +80,16 @@ class _RegisterState extends State<Register> {
                      controller: phoneNumberC,
                      keyboardType:  TextInputType.number,),
                      SizedBox(height: 10,),
-                    TextField(decoration: InputDecoration(labelText: 'first name',labelStyle: TextStyle(color: Colors.white),
+                    TextField(decoration: InputDecoration(labelText: 'Medical Condition',labelStyle: TextStyle(color: Colors.white),
                             enabledBorder: const OutlineInputBorder(
                                 borderSide: const BorderSide(
                                   color: Colors.lightBlueAccent,
                                   width: 1,
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                  
+                        controller: medicalConditonC,         
                         style: TextStyle(color: Colors.white),
-                    controller: fNameC,),
-                    SizedBox(height: 10,),
-                    TextField(decoration: InputDecoration(labelText: 'last name',labelStyle: TextStyle(color: Colors.white),
-                            enabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Colors.lightBlueAccent,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                  
-                        style: TextStyle(color: Colors.white),
-                    controller: lNameC,),
-                    SizedBox(height: 10,),
-                    TextField(decoration: InputDecoration(labelText: 'national ID number',labelStyle: TextStyle(color: Colors.white),
-                            enabledBorder: const OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                  color: Colors.lightBlueAccent,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.all(Radius.circular(15)))),
-                                 
-                        style: TextStyle(color: Colors.white),
-                    controller: nationalID,
-                    keyboardType:  TextInputType.number,),
+                   ),
                     SizedBox(height: 10,),
                     Row(
                       children: [
@@ -132,10 +120,12 @@ class _RegisterState extends State<Register> {
                          ),
                       ],
                     ),
+                    SizedBox(height: 5,),
+                    Text('leave empty for no password change',style: TextStyle(color: Colors.red),),
                     SizedBox(height: 10,),
                     TextField(
                       obscureText: true,                 
-                     decoration: InputDecoration(labelText:'Password',labelStyle: TextStyle(color: Colors.white),
+                     decoration: InputDecoration(labelText:'Old Password',labelStyle: TextStyle(color: Colors.white),
                             enabledBorder: const OutlineInputBorder(
                                 borderSide: const BorderSide(
                                   color: Colors.lightBlueAccent,
@@ -146,11 +136,11 @@ class _RegisterState extends State<Register> {
                     
                         style: TextStyle(color: Colors.white),
                      controller: password,
-                    ),
+                     ),
                       SizedBox(height: 10,),
                     TextField(
                      obscureText: true,               
-                     decoration: InputDecoration(labelText:'confirem password',labelStyle: TextStyle(color: Colors.white),
+                     decoration: InputDecoration(labelText:'New password',labelStyle: TextStyle(color: Colors.white),
                             enabledBorder: const OutlineInputBorder(
                                 borderSide: const BorderSide(
                                   color: Colors.lightBlueAccent,
@@ -160,7 +150,7 @@ class _RegisterState extends State<Register> {
                      ),
                     
                         style: TextStyle(color: Colors.white),
-                     controller: cPassword,
+                     controller: newPassword,
                      ),
                     SizedBox(height: 10,),
                     TextField(               
@@ -187,31 +177,27 @@ class _RegisterState extends State<Register> {
                 RaisedButton(
                  color: Colors.lightBlueAccent,
                  textColor: Colors.white,
-                  onPressed: () async {
+                  onPressed: () async {    
+                    int d= widget.civilian.fullName.indexOf(' ');       
                     RegisterModel registerModel=new RegisterModel(
                       phoneNumber: phoneNumberC.text.toString(),
                       password: password.text.toString(),
-                      cpassword: cPassword.text.toString(),
+                      fName: widget.civilian.fullName.substring(0,d).trim(),
+                      lName: widget.civilian.fullName.substring(d).trim(),
+                      cpassword: newPassword.text.toString(),
                       bloodType: dropdownValue.toString(),
                       userDate: pickedDate,
-                      nationalID: nationalID.text.toString(),
+                      nationalID: widget.civilian.nIDN,
                       email: email.text.toString(),
-                      fName: fNameC.text.toString(),
-                      lName: lNameC.text.toString(),
+                      medicalcondition: medicalConditonC.text.toString()+' '
                     );
-                   bool registerd= await registerModel.dataVailed(context);
+                   bool registerd= await registerModel.updateUser(widget.civilian);
                    if(registerd) {
-                     LoginModel login=new LoginModel();
-                   bool loginOK= await login.loginUser(phoneNumberC.text.toString(), password.text.toString());
-                   if(loginOK) {
-                      Navigator.pushNamed(context, 'MainMenu');
-                   } else {
-                     
-                   }
-
+                     Navigator.pop(context);
+                     Navigator.pushNamed(context, 'Profile');
                    }
                    print(registerd);
-                  },child: Text('Register',),
+                  },child: Text('Update',),
                   shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30)),
                   )

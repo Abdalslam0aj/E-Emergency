@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:E_Emergency/domain/services/LoginModel.dart';
 import 'package:E_Emergency/pages/AboutusPage.dart';
 import 'package:E_Emergency/pages/CivilianMainMenu.dart';
+import 'package:E_Emergency/pages/EditInfoPage.dart';
 import 'package:E_Emergency/pages/HelpSentPage.dart';
 import 'package:E_Emergency/pages/InformationMnue.dart';
 import 'package:E_Emergency/pages/LoginPage.dart';
@@ -67,7 +68,9 @@ static Route<dynamic> generateRoute(RouteSettings settings)  {
     case 'AboutUs':      
       return MaterialPageRoute(builder: (_)=>   AboutUs());      
     case 'Profile':      
-      return MaterialPageRoute(builder: (_)=>   Profile());     
+      return MaterialPageRoute(builder: (_)=>   Profile());
+    case 'EditInfoPage':      
+      return MaterialPageRoute(builder: (_)=>   EditInfoPage(args));        
     default:
     return MaterialPageRoute(builder: (_)=>Error());
       

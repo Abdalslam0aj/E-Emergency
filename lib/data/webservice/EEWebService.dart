@@ -479,6 +479,58 @@ static const String URL="https://192.168.1.31:44390/";
 
    }
 
+   Future<bool> updateCivilianProfile(String phoneNumber,String password,String nidn,String fullName,String bloodType,DateTime birthDate,String email,String medicalCondition,String notificationToken) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
+
+     Map<dynamic,dynamic> map = {
+        'phoneNumber' :phoneNumber,
+        'password': password,
+        'NIDN': nidn,
+        'FullName':fullName,
+        'bloodType':bloodType,
+        'birthDate':birthDate.toString(),
+        'email':email,
+        'medicalCondition':medicalCondition,
+        'notificationToken':notificationToken,
+      };
+      print(map);
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'UpdateCivilian'), body: map,);
+  
+
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);
+    String boolAsString;
+    boolAsString=response.body.toString();
+    bool b = boolAsString == 'true';      
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return b;
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return false;
+        }     
+     }catch(e){
+       print(e);
+       return false;
+     }
+ 
+
+   }
+
+
    Future<Announcemnet> getAnnouncement () async {
      try{
        HttpClient client = new HttpClient();
