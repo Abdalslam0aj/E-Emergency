@@ -14,9 +14,6 @@ class TopBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,            
         children: <Widget>[
-          Container(        
-               
-            child: IconButton(icon: Icon(Icons.menu),color: Colors.black, onPressed: () =>{})),          
            Container(      
              alignment: Alignment.center,       
               child: Text(
@@ -32,11 +29,10 @@ class TopBar extends StatelessWidget {
                            
                 child: IconButton(
                   
-                  icon: Icon(Icons.person,color: Colors.black,),
+                  icon: Icon(Icons.menu,color: Colors.black,),
                    onPressed: () =>{
-                     LoginModel.logOutUser().then((value) {
-                       Navigator.pushNamed(context, 'Login');
-                     })
+                     Navigator.pushNamed(context, 'InformationMnue')
+
                    })),
           
         ],

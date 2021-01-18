@@ -5,7 +5,11 @@ import 'package:E_Emergency/classes/NearestHospital.dart';
 import 'package:E_Emergency/classes/TravelTime.dart';
 =======
 import 'package:E_Emergency/classes/Announcemnet.dart';
+<<<<<<< HEAD
 >>>>>>> 6ef56c6 (fixed announcmnet survay other)
+=======
+import 'package:E_Emergency/classes/Civilian.dart';
+>>>>>>> 0b1b71c (civilan)
 import 'package:E_Emergency/classes/User.dart';
 import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
 import 'package:http/io_client.dart';
@@ -101,6 +105,7 @@ class EEWebService implements EEWebServiceInterface {
       var head = {'Content-Type': 'application/json; charset=UTF-8'};
       var ioClient = new IOClient(client);
 
+<<<<<<< HEAD
       http.Response response = await ioClient.post(
         Uri.parse(URL + 'CheckRequest'),
         body: map,
@@ -109,6 +114,29 @@ class EEWebService implements EEWebServiceInterface {
       String reply = await response.body.toString();
       print("sent ");
       print(response.body);
+=======
+   
+   
+
+   Future<bool> endRequest(String phoneNumber) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
+
+     Map<dynamic,dynamic> map = { 
+         'phoneNumber': phoneNumber,
+      };
+      
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'EndHelpRequest'), body: map,);
+  
+>>>>>>> 0b1b71c (civilan)
 
       if (response.statusCode == 200 ||
           response.statusCode == 201 ||
@@ -119,6 +147,7 @@ class EEWebService implements EEWebServiceInterface {
           return true;
         else
           return false;
+<<<<<<< HEAD
       } else {
         print("not sent" + response.statusCode.toString());
         return false;
@@ -141,6 +170,68 @@ class EEWebService implements EEWebServiceInterface {
         'myLatitude': latitude,
         'myLongitude': longitude,
       };
+=======
+        }     
+     }catch(e){
+       print(e);
+       return false;
+     }
+ 
+
+  
+
+   }
+
+
+
+   Future<Civilian> getUserInfo(String phoneNumber) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
+
+     Map<dynamic,dynamic> map = { 
+         'phoneNumber': phoneNumber,
+      };
+      
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'GetUserInfo'), body: map,);
+  
+
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);     
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return Civilian.fromJson(jsonDecode(response.body));
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return Civilian.fromJson(jsonDecode(response.body));
+        }     
+     }catch(e){
+       print(e);
+       return null;
+     }
+ 
+
+  
+
+   }
+
+   Future<HelpRequest> getRequest(String phoneNumber) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
+>>>>>>> 0b1b71c (civilan)
 
       var head = {'Content-Type': 'application/json; charset=UTF-8'};
       var ioClient = new IOClient(client);
@@ -554,6 +645,77 @@ class EEWebService implements EEWebServiceInterface {
      }
  
    }
+
+   Future<NearestHospital> arrivedAtLocation(
+      String phoneNumber, String latitude, String longitude) async {
+    try {
+      HttpClient client = new HttpClient();
+      client.badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => true);
+
+      Map<dynamic, dynamic> map = {
+        'civilianPhoneNumber': phoneNumber,
+        'myLatitude': latitude,
+        'myLongitude': longitude,
+      };
+
+      var head = {'Content-Type': 'application/json; charset=UTF-8'};
+      var ioClient = new IOClient(client);
+
+      http.Response response = await ioClient.post(
+        Uri.parse(URL + 'ArrivedAtLocation'),
+        body: map,
+      );
+
+      //String reply = await response.body.toString();
+      print("sent ");
+      print(response.body);
+
+      if (response.statusCode == 200||
+          response.statusCode == 201|| 
+          response.statusCode == 202) {
+        //if(httpResponse.body=="true")
+        print("sent correctly");
+        return NearestHospital.fromJson(jsonDecode(response.body));
+      } else {
+        print("not sent" + response.statusCode.toString());
+      }
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<TravelTime> getTravelTime(
+      double originLatitude,
+      double originLongitude,
+      double destinationLatitude,
+      double destinationLongitude) async {
+    try {
+      HttpClient client = new HttpClient();
+      client.badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => true);
+
+      Map<dynamic, dynamic> paramsMap = {
+        'units': 'metric',
+        'origins': '$originLatitude,$originLongitude',
+        'destination': '$destinationLatitude,$destinationLongitude',
+        'key': 'AIzaSyDP-Tm7tTT69M5hxxJy0fY-aTzyFSajJ1Q'
+      };
+      //distanceMatrixURL
+   //static const String distanceMatrixURL = 'https://maps.googleapis.com/maps/api/distancematrix/json';
+
+      var uri = Uri.https(
+          'maps.googleapis.com', '/maps/api/distancematrix/json', paramsMap);
+
+      http.Response response = await http.get(uri);
+      return TravelTime.fromJson(json.decode(response.body));
+    } catch (e) {
+      print(e + ' Not able to connect to the Google distance matrix API');
+      // return false;
+    }
+  }
+
 
 
 >>>>>>> 6ef56c6 (fixed announcmnet survay other)

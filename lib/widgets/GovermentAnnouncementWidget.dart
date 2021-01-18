@@ -10,7 +10,7 @@ class GovermentAnnouncementWidget extends StatefulWidget {
 
 class _GovermentAnnouncementWidgetState extends State<GovermentAnnouncementWidget> {
   String wAnnouncement='No announcment issued';
-  Announcemnet _announcemnet;
+  Announcemnet _announcemnet=new Announcemnet(title: '',readMore: '');
 
 
   @override

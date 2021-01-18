@@ -49,9 +49,11 @@ class _TimeToAriveState extends State<TimeToArive> {
 
    }
 
-    void _updateProgress() {  
+    void _updateProgress() {
     const sec = const Duration(seconds:30 );  
-    new Timer.periodic(sec, (Timer t) {
+    Timer timer;
+    try {
+    timer= new Timer.periodic(sec, (Timer t) {
       DateTime dateNow =DateTime(2020,12,29,16,40,50);// DateTime.now();      
       setState(() {
         pass=dateNow.difference(dateAr).inSeconds+2;  
@@ -62,9 +64,14 @@ class _TimeToAriveState extends State<TimeToArive> {
           return;  
         }  
       });  
-    });  
+    });
+    } catch (e) {
+      print(e);
+      timer.cancel();
+    }  
   }  
 
+  
 
 
 
