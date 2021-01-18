@@ -1,25 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
-<<<<<<< HEAD
+import 'package:E_Emergency/classes/Announcemnet.dart';
+import 'package:E_Emergency/classes/Civilian.dart';
 import 'package:E_Emergency/classes/NearestHospital.dart';
 import 'package:E_Emergency/classes/TravelTime.dart';
-=======
-import 'package:E_Emergency/classes/Announcemnet.dart';
-<<<<<<< HEAD
->>>>>>> 6ef56c6 (fixed announcmnet survay other)
-=======
-import 'package:E_Emergency/classes/Civilian.dart';
->>>>>>> 0b1b71c (civilan)
 import 'package:E_Emergency/classes/User.dart';
 import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
 import 'package:http/io_client.dart';
 import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
 import 'package:http/http.dart' as http;
 
+
+
+
 class EEWebService implements EEWebServiceInterface {
-  static const String URL = "https://192.168.1.31:44390/";
-  static const String distanceMatrixURL =
-      'https://maps.googleapis.com/maps/api/distancematrix/json';
+static const String URL="https://192.168.1.31:44390/";
+
+
 /*
 *this method takes the civilian phone number, latitude and longitude as a string 
 *and sends it via http post to the api
@@ -28,21 +25,6 @@ class EEWebService implements EEWebServiceInterface {
 *returns a true bool if the request is done 
 *false other wise
 */
-<<<<<<< HEAD
-  Future<bool> sendHelpRequest(String phoneNumber, String latitude,
-      String longitude, String desc) async {
-    try {
-      HttpClient client = new HttpClient();
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-
-      Map<dynamic, dynamic> map = {
-        'civilianPhoneNumber': phoneNumber,
-        'latitude': latitude,
-        'longitude': longitude,
-        'status': "Mcok",
-        'description': desc,
-=======
    Future<bool> sendHelpRequest(String phoneNumber,String latitude,String longitude,String desc,int numberOfHumans) async {
      try{
        HttpClient client = new HttpClient();
@@ -61,60 +43,81 @@ class EEWebService implements EEWebServiceInterface {
  
    var head={
         'Content-Type': 'application/json; charset=UTF-8'
->>>>>>> 444609a (survay finished)
       };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'ReciveHelpRequest'), body: map,);
+  
 
-      var head = {'Content-Type': 'application/json; charset=UTF-8'};
-      var ioClient = new IOClient(client);
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);     
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return true;
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return false;
+        }     
+     }catch(e){
+       print(e);
+       return false;
+     }
+ 
 
-      http.Response response = await ioClient.post(
-        Uri.parse(URL + 'ReciveHelpRequest'),
-        body: map,
-      );
+  
 
-      String reply = await response.body.toString();
-      print("sent ");
-      print(response.body);
+   }
 
-      if (response.statusCode == 200 ||
-          response.statusCode == 201 ||
-          response.statusCode == 202) {
-        //if(httpResponse.body=="true")
-        print("sent correctly");
-        return true;
-      } else {
-        print("not sent" + response.statusCode.toString());
-        return false;
-      }
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
+   Future<bool> checkRequest(String phoneNumber) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
 
-  Future<bool> checkRequest(String phoneNumber) async {
-    try {
-      HttpClient client = new HttpClient();
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-
-      Map<dynamic, dynamic> map = {
-        'civilianPhoneNumber': phoneNumber,
+     Map<dynamic,dynamic> map = { 
+         'civilianPhoneNumber': phoneNumber,
       };
+      
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'CheckRequest'), body: map,);
+  
 
-      var head = {'Content-Type': 'application/json; charset=UTF-8'};
-      var ioClient = new IOClient(client);
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);
+         
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          if( response.body=='true')
+          return true;
+          else 
+          return false;
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return false;
+        }     
+     }catch(e){
+       print(e);
+       return false;
+     }
+ 
 
-<<<<<<< HEAD
-      http.Response response = await ioClient.post(
-        Uri.parse(URL + 'CheckRequest'),
-        body: map,
-      );
+  
 
-      String reply = await response.body.toString();
-      print("sent ");
-      print(response.body);
-=======
+   }
+
    
    
 
@@ -136,41 +139,19 @@ class EEWebService implements EEWebServiceInterface {
     
      http.Response response = await ioClient.post(Uri.parse(URL+'EndHelpRequest'), body: map,);
   
->>>>>>> 0b1b71c (civilan)
 
-      if (response.statusCode == 200 ||
-          response.statusCode == 201 ||
-          response.statusCode == 202) {
-        //if(httpResponse.body=="true")
-        print("sent correctly");
-        if (response.body == 'true')
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);     
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
           return true;
-        else
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
           return false;
-<<<<<<< HEAD
-      } else {
-        print("not sent" + response.statusCode.toString());
-        return false;
-      }
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
-  Future<NearestHospital> arrivedAtLocation(
-      String phoneNumber, String latitude, String longitude) async {
-    try {
-      HttpClient client = new HttpClient();
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-
-      Map<dynamic, dynamic> map = {
-        'civilianPhoneNumber': phoneNumber,
-        'myLatitude': latitude,
-        'myLongitude': longitude,
-      };
-=======
         }     
      }catch(e){
        print(e);
@@ -231,46 +212,10 @@ class EEWebService implements EEWebServiceInterface {
        HttpClient client = new HttpClient();
         client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
                
->>>>>>> 0b1b71c (civilan)
 
-      var head = {'Content-Type': 'application/json; charset=UTF-8'};
-      var ioClient = new IOClient(client);
-
-      http.Response response = await ioClient.post(
-        Uri.parse(URL + 'ArrivedAtLocation'),
-        body: map,
-      );
-
-      //String reply = await response.body.toString();
-      print("sent ");
-      print(response.body);
-
-      if (response.statusCode == 200 ||
-          response.statusCode == 201 ||
-          response.statusCode == 202) {
-        //if(httpResponse.body=="true")
-        print("sent correctly");
-        return NearestHospital.fromJson(jsonDecode(response.body));
-      } else {
-        print("not sent" + response.statusCode.toString());
-      }
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
-
-  Future<bool> endRequest(String phoneNumber) async {
-    try {
-      HttpClient client = new HttpClient();
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-
-      Map<dynamic, dynamic> map = {
-        'phoneNumber': phoneNumber,
+     Map<dynamic,dynamic> map = { 
+         'phoneNumber': phoneNumber,
       };
-<<<<<<< HEAD
-=======
       
  
    var head={
@@ -441,132 +386,53 @@ class EEWebService implements EEWebServiceInterface {
        HttpClient client = new HttpClient();
         client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
                
->>>>>>> 5ee15a7 (timer added)
 
-      var head = {'Content-Type': 'application/json; charset=UTF-8'};
-      var ioClient = new IOClient(client);
-
-      http.Response response = await ioClient.post(
-        Uri.parse(URL + 'EndHelpRequest'),
-        body: map,
-      );
-
-      String reply = await response.body.toString();
-      print("sent ");
-      print(response.body);
-
-      if (response.statusCode == 200 ||
-          response.statusCode == 201 ||
-          response.statusCode == 202) {
-        //if(httpResponse.body=="true")
-        print("sent correctly");
-        return true;
-      } else {
-        print("not sent" + response.statusCode.toString());
-        return false;
-      }
-    } catch (e) {
-      print(e);
-      return false;
-    }
-  }
-
-  Future<HelpRequest> getRequest(String phoneNumber) async {
-    try {
-      HttpClient client = new HttpClient();
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-
-      Map<dynamic, dynamic> map = {
-        'phoneNumber': phoneNumber,
+     Map<dynamic,dynamic> map = { 
+         'phoneNumber': phoneNumber,
+         'password': password,
+         'notiToken': token,
       };
-
-      var head = {'Content-Type': 'application/json; charset=UTF-8'};
-      var ioClient = new IOClient(client);
-
-      http.Response response = await ioClient.post(
-        Uri.parse(URL + 'GetHelpRequest'),
-        body: map,
-      );
-
-      String reply = await response.body.toString();
-      print("sent ");
-      print(response.body);
-
-      if (response.statusCode == 200 ||
-          response.statusCode == 201 ||
-          response.statusCode == 202) {
-        //if(httpResponse.body=="true")
-        print("sent correctly");
-
-        return HelpRequest.fromJson(jsonDecode(response.body));
-      } else {
-        print("not sent" + response.statusCode.toString());
-        return HelpRequest.fromJson(jsonDecode(response.body));
-      }
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
-
-  Future<User> login(String phoneNumber, String password, String token) async {
-    try {
-      HttpClient client = new HttpClient();
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-
-      Map<dynamic, dynamic> map = {
-        'phoneNumber': phoneNumber,
-        'password': password,
-        'notiToken': token,
+      
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
       };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'LoginUser'), body: map,);
+  
 
-      var head = {'Content-Type': 'application/json; charset=UTF-8'};
-      var ioClient = new IOClient(client);
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);     
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return  User.fromJson(jsonDecode(response.body));
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return User.fromJson(jsonDecode(response.body));
+        }     
+     }catch(e){
+       print(e);
+       return null;
+     }
+ 
 
-      http.Response response = await ioClient.post(
-        Uri.parse(URL + 'LoginUser'),
-        body: map,
-      );
+  
 
-      String reply = await response.body.toString();
-      print("sent ");
-      print(response.body);
+   }
 
-      if (response.statusCode == 200 ||
-          response.statusCode == 201 ||
-          response.statusCode == 202) {
-        //if(httpResponse.body=="true")
-        print("sent correctly");
-        return User.fromJson(jsonDecode(response.body));
-      } else {
-        print("not sent" + response.statusCode.toString());
-        return User.fromJson(jsonDecode(response.body));
-      }
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
+   Future<bool> register(String phoneNumber,String password,String nidn,String fullName,String bloodType,DateTime birthDate,String email,String medicalCondition,String notificationToken) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
 
-  Future<bool> register(
-      String phoneNumber,
-      String password,
-      String nidn,
-      String fullName,
-      String bloodType,
-      DateTime birthDate,
-      String email,
-      String medicalCondition,
-      String notificationToken) async {
-    try {
-      HttpClient client = new HttpClient();
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-
-      Map<dynamic, dynamic> map = {
-        'phoneNumber': phoneNumber,
+     Map<dynamic,dynamic> map = {
+        'phoneNumber' :phoneNumber,
         'password': password,
         'NIDN': nidn,
         'FullName':fullName,
@@ -607,9 +473,6 @@ class EEWebService implements EEWebServiceInterface {
        print(e);
        return false;
      }
-<<<<<<< HEAD
-      }
-=======
  
 
   
@@ -718,37 +581,6 @@ class EEWebService implements EEWebServiceInterface {
 
 
 
->>>>>>> 6ef56c6 (fixed announcmnet survay other)
 
- 
 
-  Future<TravelTime> getTravelTime(
-      double originLatitude,
-      double originLongitude,
-      double destinationLatitude,
-      double destinationLongitude) async {
-    try {
-      HttpClient client = new HttpClient();
-      client.badCertificateCallback =
-          ((X509Certificate cert, String host, int port) => true);
-
-      Map<dynamic, dynamic> paramsMap = {
-        'units': 'metric',
-        'origins': '$originLatitude,$originLongitude',
-        'destination': '$destinationLatitude,$destinationLongitude',
-        'key': 'AIzaSyDP-Tm7tTT69M5hxxJy0fY-aTzyFSajJ1Q'
-      };
-      //distanceMatrixURL
-//static const String distanceMatrixURL = 'https://maps.googleapis.com/maps/api/distancematrix/json';
-
-      var uri = Uri.https(
-          'maps.googleapis.com', '/maps/api/distancematrix/json', paramsMap);
-
-      http.Response response = await http.get(uri);
-      return TravelTime.fromJson(json.decode(response.body));
-    } catch (e) {
-      print(e + ' Not able to connect to the Google distance matrix API');
-      // return false;
-    }
-  }
 }
