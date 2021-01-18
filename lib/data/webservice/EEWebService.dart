@@ -1,7 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+<<<<<<< HEAD
 import 'package:E_Emergency/classes/NearestHospital.dart';
 import 'package:E_Emergency/classes/TravelTime.dart';
+=======
+import 'package:E_Emergency/classes/Announcemnet.dart';
+>>>>>>> 6ef56c6 (fixed announcmnet survay other)
 import 'package:E_Emergency/classes/User.dart';
 import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
 import 'package:http/io_client.dart';
@@ -339,7 +343,47 @@ class EEWebService implements EEWebServiceInterface {
        print(e);
        return false;
      }
+<<<<<<< HEAD
       }
+=======
+ 
+
+  
+
+   }
+
+   Future<Announcemnet> getAnnouncement () async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true); 
+        var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.get(Uri.parse(URL+'GetAnnouncement'),);
+  
+
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);     
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return Announcemnet.fromJson(jsonDecode(response.body));
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+
+          return Announcemnet.fromJson(jsonDecode(response.body));
+        }     
+     }catch(e){
+       print(e);
+       return Announcemnet();
+     }
+ 
+   }
+
+
+>>>>>>> 6ef56c6 (fixed announcmnet survay other)
 
  
 

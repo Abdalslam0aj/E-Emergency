@@ -6,6 +6,7 @@ import 'package:E_Emergency/pages/ParamedicMainMenu.dart';
 import 'package:E_Emergency/pages/RegisterPage.dart';
 import 'package:E_Emergency/pages/SendHelpRequestScreen.dart';
 import 'package:E_Emergency/pages/SurvayPage.dart';
+import 'package:E_Emergency/widgets/SurvayWdigets/OtherPage.dart';
 import 'package:E_Emergency/widgets/informationNavigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,10 @@ static Route<dynamic> generateRoute(RouteSettings settings)  {
     case 'HelpSentPage':      
       return MaterialPageRoute(builder: (_)=>HelpSentPage());
     case 'InformationNavigation':      
-      return MaterialPageRoute(builder: (_)=> InformationNavigation(args));     
+      return MaterialPageRoute(builder: (_)=> InformationNavigation(args));
+    case 'OtherPage':      
+      return MaterialPageRoute(builder: (_)=> OtherPage(args));  
+          
     default:
     return MaterialPageRoute(builder: (_)=>Error());
       

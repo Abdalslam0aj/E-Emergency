@@ -36,9 +36,10 @@ class _SurvayPageState extends State<SurvayPage> {
       finishSurvay(desc);
       
     }
-    
-   
+  }
 
+  void showOtherScreen(String dumb){
+    Navigator.pushNamed(context,'OtherPage',arguments: finishSurvay);
   }
 
   Future<bool> _sendHelpRequest(String desc) async {
@@ -109,7 +110,7 @@ class _SurvayPageState extends State<SurvayPage> {
                     children: [
                        SurvayButton(buttonText: 'Unconscious adult\n(lifeless) ',buttonImge: 'assets/unconscious.png',onTap: finishSurvay,),
                       SurvayButton(buttonText: 'Second/Third degree burns',buttonImge: 'assets/fire.png',onTap: finishSurvay,),
-                      SurvayButton(buttonText: 'Other',buttonImge: 'assets/exclamation.png',onTap: finishSurvay,)
+                      SurvayButton(buttonText: 'Other',buttonImge: 'assets/exclamation.png',onTap: showOtherScreen,)
                     ],
                     
                   )

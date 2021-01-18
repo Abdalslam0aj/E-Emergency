@@ -1,4 +1,5 @@
 import 'package:E_Emergency/domain/services/LocationFinder.dart';
+import 'package:E_Emergency/domain/services/firebaseFCM.dart';
 import 'package:E_Emergency/widgets/SendHelpScreen/ConformationCard.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class _HelpSentPageState extends State<HelpSentPage> {
   String address;
   @override
   void initState() {
+    PushNotificationService.ctx=context;
     // TODO: implement initState
      LocationFinder.getUserAddress().then((add){
 
