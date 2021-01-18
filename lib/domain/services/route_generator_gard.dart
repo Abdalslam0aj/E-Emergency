@@ -1,8 +1,13 @@
+import 'dart:async';
+
 import 'package:E_Emergency/domain/services/LoginModel.dart';
+import 'package:E_Emergency/pages/AboutusPage.dart';
 import 'package:E_Emergency/pages/CivilianMainMenu.dart';
 import 'package:E_Emergency/pages/HelpSentPage.dart';
+import 'package:E_Emergency/pages/InformationMnue.dart';
 import 'package:E_Emergency/pages/LoginPage.dart';
 import 'package:E_Emergency/pages/ParamedicMainMenu.dart';
+import 'package:E_Emergency/pages/Profile.dart';
 import 'package:E_Emergency/pages/RegisterPage.dart';
 import 'package:E_Emergency/pages/SendHelpRequestScreen.dart';
 import 'package:E_Emergency/pages/SurvayPage.dart';
@@ -56,8 +61,13 @@ static Route<dynamic> generateRoute(RouteSettings settings)  {
     case 'InformationNavigation':      
       return MaterialPageRoute(builder: (_)=> InformationNavigation(args));
     case 'OtherPage':      
-      return MaterialPageRoute(builder: (_)=> OtherPage(args));  
-          
+      return MaterialPageRoute(builder: (_)=> OtherPage(args));
+    case 'InformationMnue':      
+      return MaterialPageRoute(builder: (_)=>  InformationMnue());
+    case 'AboutUs':      
+      return MaterialPageRoute(builder: (_)=>   AboutUs());      
+    case 'Profile':      
+      return MaterialPageRoute(builder: (_)=>   Profile());     
     default:
     return MaterialPageRoute(builder: (_)=>Error());
       
@@ -82,7 +92,10 @@ class _LoadState extends State<Load> {
       RouteGenerator.userAuth=value;
       RouteGenerator.userType= await loginModel.userType();
       if(value) {
-        Navigator.of(context).pushNamed('MainMenu');
+        Timer(Duration(milliseconds: 20), (){
+           Navigator.of(context).pushNamed('MainMenu');
+        });
+       
       }
       else
         Navigator.of(context).pushNamed('Login');
