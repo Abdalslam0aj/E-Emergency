@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:E_Emergency/classes/NearestHospital.dart';
 import 'package:E_Emergency/classes/TravelTime.dart';
 import 'package:E_Emergency/classes/User.dart';
 import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
@@ -103,7 +104,7 @@ class EEWebService implements EEWebServiceInterface {
     }
   }
 
-  Future<bool> arrivedAtLocation(
+  Future<NearestHospital> arrivedAtLocation(
       String phoneNumber, String latitude, String longitude) async {
     try {
       HttpClient client = new HttpClient();
@@ -124,7 +125,7 @@ class EEWebService implements EEWebServiceInterface {
         body: map,
       );
 
-      String reply = await response.body.toString();
+      //String reply = await response.body.toString();
       print("sent ");
       print(response.body);
 
@@ -133,14 +134,13 @@ class EEWebService implements EEWebServiceInterface {
           response.statusCode == 202) {
         //if(httpResponse.body=="true")
         print("sent correctly");
-        return true;
+        return NearestHospital.fromJson(jsonDecode(response.body));
       } else {
         print("not sent" + response.statusCode.toString());
-        return false;
       }
     } catch (e) {
       print(e);
-      return false;
+      return null;
     }
   }
 

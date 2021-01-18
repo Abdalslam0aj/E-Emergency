@@ -1,13 +1,13 @@
 import 'dart:async';
 
+import 'package:E_Emergency/classes/TravelTime.dart';
+import 'package:E_Emergency/data/webservice/EEWebService.dart';
+import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
 import 'package:E_Emergency/domain/services/LocationFinder.dart';
-import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-
-import 'Classes/assignedHelpRequest.dart';
 
 class HelpLocation extends StatefulWidget {
   double civilianLatitude, civilianLongitude;
@@ -30,13 +30,23 @@ class _MyAppState extends State<HelpLocation> {
   String emergencyAddress;
   List<LatLng> latlng = List();
   //static const LatLng _center = const LatLng(32.017509, 35.890251);
-
+  EEWebService paramedicService = new EEWebService();
+  TravelTime travelTime;
   @override
   void initState() {
     locationOfEmergency =
         LatLng(widget.civilianLatitude, widget.civilianLongitude);
     emergencyAddress = LocationFinder.getEmergencyAddress(
         locationOfEmergency.latitude, locationOfEmergency.longitude);
+    paramedicService
+        .getTravelTime(
+            locationOfEmergency.latitude,
+            locationOfEmergency.longitude,
+            widget.civilianLatitude,
+            widget.civilianLongitude)
+        .then((value) {
+      travelTime = value;
+    });
     super.initState();
     setIcons();
   }
@@ -62,23 +72,24 @@ class _MyAppState extends State<HelpLocation> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            backgroundColor: Colors.black,
-            body: GoogleMap(
-              //that needs a list<Polyline>
+        home: Stack(children: [
+      GoogleMap(
+        //that needs a list<Polyline>
 
-              markers: _markers,
-              polylines: _polylines,
-              onMapCreated: _onMapCreated,
-              myLocationEnabled: true,
-              //onCameraMove: _onCameraMove,
-              initialCameraPosition: CameraPosition(
-                target: locationOfEmergency,
-                zoom: 11.0,
-              ),
+        markers: _markers,
+        polylines: _polylines,
+        onMapCreated: _onMapCreated,
+        myLocationEnabled: true,
+        //onCameraMove: _onCameraMove,
+        initialCameraPosition: CameraPosition(
+          target: locationOfEmergency,
+          zoom: 11.0,
+        ),
 
-              mapType: MapType.normal,
-            )));
+        mapType: MapType.normal,
+      ),
+      travelTimeCard()
+    ]));
   }
 
   void setMapPins() {
@@ -143,7 +154,8 @@ class _MyAppState extends State<HelpLocation> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text('Emergency Location:{$emergencyAddress}'),
-                     Text(''),
+                    Text(
+                        'Estimated Duration: ${travelTime.elements[0].duration}'),
                   ]),
             ))
           ],
