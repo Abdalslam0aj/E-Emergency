@@ -29,7 +29,7 @@ class PushNotificationService {
       
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
-        DialogFactory.showRegisterDialog(ctx, 'paramedic has arrived', message.toString());
+        DialogFactory.showRegisterDialog(ctx, message['notification']['title'],message['notification']['body'] );
         
       },
       onLaunch: (Map<String, dynamic> message) async {

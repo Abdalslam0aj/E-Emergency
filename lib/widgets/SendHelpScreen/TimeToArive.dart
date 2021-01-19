@@ -78,7 +78,7 @@ class _TimeToAriveState extends State<TimeToArive> {
   @override
   Widget build(BuildContext context) {    
     return Container(
-      height: 80,      
+      height: MediaQuery.of(context).size.height*0.3,      
       decoration: BoxDecoration(
          boxShadow: [BoxShadow(color: Colors.black38,blurRadius: 5,offset: Offset(0, 1),spreadRadius: 0.5)],
         gradient: LinearGradient(colors:[Colors.lightBlue[400],Colors.blue[800],Colors.blue[800],Colors.blue[300]]),
@@ -142,6 +142,17 @@ class _TimeToAriveState extends State<TimeToArive> {
               ],
             ),
           ),
+          SizedBox(height: 15,),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Please stay calm the team will arrive shortly',style: TextStyle(fontWeight: FontWeight.bold),),
+              Text('You will be notified once the team arrivies on your location',style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('keep your phone ready to recive a phone call',style: TextStyle(fontWeight: FontWeight.bold)),
+              Text('Any new info will be added will be recived by the paramedic',style: TextStyle(fontWeight: FontWeight.bold)),
+
+            ],
+          )
         ],
       ):Column(
         children: [

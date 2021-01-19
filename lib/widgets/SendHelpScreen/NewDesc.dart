@@ -25,7 +25,10 @@ class _NewDescState extends State<NewDesc> {
       height: MediaQuery.of(context).size.height*0.40,      
       child: Column(
         children: [          
-          Text('you can send more info  : ',style: TextStyle(fontSize: 30,color: Colors.black),),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('You can send more info  : ',style: TextStyle(fontSize: 25,color: Colors.black),),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(

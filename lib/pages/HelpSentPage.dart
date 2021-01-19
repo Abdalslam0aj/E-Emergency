@@ -45,17 +45,15 @@ class _HelpSentPageState extends State<HelpSentPage> {
          decoration: BoxDecoration(
            
                 borderRadius: BorderRadius.circular(5),
-                gradient: RadialGradient(colors:[Colors.lightBlue[800],Colors.lightBlue[700],Colors.lightBlue[700],Colors.lightBlue[600]])
+                color: Colors.black,
+               // gradient: RadialGradient(colors:[Colors.lightBlue[800],Colors.lightBlue[700],Colors.lightBlue[700],Colors.lightBlue[600]])
               ),
         child:Column(
         children: [
-          
           ConformationCard(),
           TimeToArive(),
-          SizedBox(height: 60,),
+          //SizedBox(height: MediaQuery.of(context).size.height*0.15,),
           NewDesc(_sendHelpRequest),
-          
-          
           
         ],
       ), ),
