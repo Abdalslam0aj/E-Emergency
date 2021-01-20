@@ -36,7 +36,7 @@ class _TimeToAriveState extends State<TimeToArive> {
      print(helpTime.timeOfArrivel);
        dateAr =DateTime.parse(helpTime.timeOfArrivel);
        dateEnd =DateTime.parse(helpTime.timeOfEnd);
-      DateTime dateNow=DateTime(2020,12,29,16,39,50);//DateTime.now();
+      DateTime dateNow = DateTime.now();
       setState(() {
          eta =dateEnd.difference(dateAr).inSeconds;
          pass=dateNow.difference(dateAr).inSeconds;
@@ -54,7 +54,7 @@ class _TimeToAriveState extends State<TimeToArive> {
     Timer timer;
     try {
     timer= new Timer.periodic(sec, (Timer t) {
-      DateTime dateNow =DateTime(2020,12,29,16,40,50);// DateTime.now();      
+      DateTime dateNow = DateTime.now();      
       setState(() {
         pass=dateNow.difference(dateAr).inSeconds+2;  
         loadingValue = pass/eta;
@@ -143,26 +143,44 @@ class _TimeToAriveState extends State<TimeToArive> {
             ),
           ),
           SizedBox(height: 15,),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Please stay calm the team will arrive shortly',style: TextStyle(fontWeight: FontWeight.bold),),
-              Text('You will be notified once the team arrivies on your location',style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('keep your phone ready to recive a phone call',style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('Any new info will be added will be recived by the paramedic',style: TextStyle(fontWeight: FontWeight.bold)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Please stay calm the team will arrive shortly',style: TextStyle(fontWeight: FontWeight.bold),),
+                Text('You will be notified once the team arrivies on your location',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('keep your phone ready to recive a phone call',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('Any new info will be added will be recived by the paramedic',style: TextStyle(fontWeight: FontWeight.bold)),
 
-            ],
+              ],
+            ),
           )
         ],
       ):Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          
           LinearProgressIndicator(
-            minHeight: 300,
-            backgroundColor: Colors.red,
+            minHeight: 40,
+            backgroundColor: Colors.green,
             value: 1.0,
             valueColor:  new AlwaysStoppedAnimation<Color>(Colors.red),      
           ),
           Text('Arrived '),
+           SizedBox(height: 15,),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Please stay calm the team has arrived',style: TextStyle(fontWeight: FontWeight.bold),),
+                Text('keep your phone ready to recive a phone call',style: TextStyle(fontWeight: FontWeight.bold)),
+                Text('Any new info will be added will be recived by the paramedic',style: TextStyle(fontWeight: FontWeight.bold)),
+
+              ],
+            ),
+          )
         ],
       )
       

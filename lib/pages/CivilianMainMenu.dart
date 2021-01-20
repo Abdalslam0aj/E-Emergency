@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:E_Emergency/data/webservice/EEWebService.dart';
 import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
 import 'package:E_Emergency/widgets/GoogleMapCivilian.dart';
@@ -38,24 +40,24 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
     SharedPreferences.getInstance().then((sp) {
       String phoneNumber =sp.getString('phoneNumber');
       print(phoneNumber);
-
-    
      EEWebServiceInterface paramedicService=new EEWebService();
      paramedicService.checkRequest(phoneNumber).then((value) {
        if(value)
        Navigator.pushNamed(context, 'HelpSentPage');       
      } );
-    // paramedicService.
+    new Timer(Duration(milliseconds: 300), getaddres);
+    });
+    super.initState();
+  }
+  
+  getaddres(){
     LocationFinder.getUserAddress().then((address){
       setState(() {
          loc=address;
       });
      
      });
-    });
-    super.initState();
   }
- 
 
   /*
   *

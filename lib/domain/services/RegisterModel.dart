@@ -59,10 +59,7 @@ class RegisterModel {
     String fullName=fName+' '+lName;
     String token = await TokenMaker.getNotificationToken();
     print(userDate);    
-    webService.register(phoneNumber, password, nationalID, fullName, bloodType, userDate, email, 'none',token ).then((value) {
-     return value;
-    });
-    
+    return await webService.register(phoneNumber, password, nationalID, fullName, bloodType, userDate, email, 'none',token );
 
   }
 

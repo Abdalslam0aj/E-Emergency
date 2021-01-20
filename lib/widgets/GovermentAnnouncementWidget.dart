@@ -73,7 +73,7 @@ class _GovermentAnnouncementWidgetState extends State<GovermentAnnouncementWidge
              Divider(thickness: 2,),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Row(
+                child: Column(
                   children: [
                     Text(_announcemnet.readMore,textAlign: TextAlign.start,),
                   ],

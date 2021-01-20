@@ -561,6 +561,50 @@ static const String URL="https://192.168.1.31:44390/";
  
    }
 
+   Future<bool> resetPassowrd(String phoneNumber,) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
+
+     Map<dynamic,dynamic> map = {
+        'phoneNumber' :phoneNumber,            
+      };
+      print(map);
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'ResetPassword'), body: map,);
+  
+
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);
+    String boolAsString;
+    boolAsString=response.body.toString();
+    bool b = boolAsString == 'true';      
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return b;
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return false;
+        }     
+     }catch(e){
+       print(e);
+       return false;
+     }
+ 
+
+   }
+
+   
    Future<NearestHospital> arrivedAtLocation(
       String phoneNumber, String latitude, String longitude) async {
     try {

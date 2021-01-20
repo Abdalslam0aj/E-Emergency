@@ -81,7 +81,7 @@ class _ProfileState extends State<Profile> {
             Row(
               children: [
                 Text('Email: ',style: TextStyle( fontSize: 25,) ),
-                Text(userProfile.email,style: TextStyle( fontSize: 25,color: Colors.white) ),
+                Text(userProfile.email,style: TextStyle( fontSize: 20,color: Colors.white) ),
               ],
             ),
              SizedBox(height: 20,),
