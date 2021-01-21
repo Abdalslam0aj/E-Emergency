@@ -1,15 +1,16 @@
 import 'dart:io';
 
+import 'package:E_Emergency/widgets/DialogFactory.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm;
-  final BuildContext ctx;
+  static BuildContext ctx;
   
 
-  PushNotificationService(this._fcm,this.ctx);
+  PushNotificationService(this._fcm);
 
 
   Future initialise() async {
@@ -28,6 +29,7 @@ class PushNotificationService {
       
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
+        DialogFactory.showRegisterDialog(ctx, message['notification']['title'],message['notification']['body'] );
         
       },
       onLaunch: (Map<String, dynamic> message) async {

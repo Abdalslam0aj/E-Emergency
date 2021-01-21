@@ -8,7 +8,7 @@ import 'helpRequest.dart';
 import 'package:dio/dio.dart';
 
 class ApiRequests {
-  static const String URL = 'https://192.168.1.31:44390/GetHelpRequest';
+  static const String URL = 'https://192.168.98.177:44390/GetHelpRequest';
   List helpRequestInfoList;
 
   final json = const JsonCodec();

@@ -56,7 +56,7 @@ class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
   
-    final pushNotificationService = PushNotificationService(_firebaseMessaging,context);
+    final pushNotificationService = PushNotificationService(_firebaseMessaging);
     pushNotificationService.initialise();
     
     

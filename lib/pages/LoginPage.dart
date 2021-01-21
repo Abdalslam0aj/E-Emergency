@@ -1,4 +1,5 @@
 import 'package:E_Emergency/domain/services/LoginModel.dart';
+import 'package:E_Emergency/domain/services/RegisterModel.dart';
 import 'package:E_Emergency/pages/CivilianMainMenu.dart';
 import 'package:E_Emergency/widgets/DialogFactory.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _LoginState extends State<Login> {
             height: 20,
           ),
           Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(left: 15,right: 15,top: 15,bottom: 0),
               child: TextFormField(
                   decoration: InputDecoration(
                       labelText: 'Password:',
@@ -72,9 +73,31 @@ class _LoginState extends State<Login> {
                   obscureText: true,
                   style: TextStyle(color: Colors.white),
                   controller: userPassword)),
-          SizedBox(
-            height: 20,
-          ),
+         
+           FlatButton(
+              child: Row(
+                children: [
+                  Text(
+                      'Forgat passowrd? ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 13)),
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: Text(
+                      'Click here to rest it.',
+                      style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                            fontSize: 13)),
+                          ),
+                ],
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, 'ResetPassword');
+             
+              }),
           SizedBox(
               width: 350,
               child: RaisedButton(
@@ -103,16 +126,52 @@ class _LoginState extends State<Login> {
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(30)),
               )),
+              SizedBox(
+            height: 10,
+          ),
           SizedBox(
+            width: double.infinity,
+            height: 50,
+          child:
+          RaisedButton(
+                color: Colors.redAccent,
+                textColor: Colors.white,
+                child: Text(
+                  '   Request Help\nnot registerd user',
+                  style: TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  
+                  Navigator.pushNamed(context, 'FastHelp');
+                },
+                shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(30)),
+              )),
+              SizedBox(height: 20,),
+             
+               SizedBox(
             height: 20,
           ),
           FlatButton(
-              child: Text(
-                  'Don\'t have an account? Click here to create an account.',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      fontSize: 15)),
+              child: Row(
+                children: [
+                  Text(
+                      'Don\'t have an account? ',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 13)),
+                          Flexible(
+                            fit: FlexFit.loose,
+                            child: Text(
+                      ' Click here to create an account.',
+                      style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue,
+                            fontSize: 13)),
+                          ),
+                ],
+              ),
               onPressed: () {
                 Navigator.pushNamed(context, 'Register');
              

@@ -1,43 +1,59 @@
 import 'dart:async';
 
-import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
+import 'package:E_Emergency/classes/TravelTime.dart';
+import 'package:E_Emergency/data/webservice/EEWebService.dart';
+import 'package:E_Emergency/domain/Interface/EEWebServiceInterface.dart';
+import 'package:E_Emergency/domain/services/LocationFinder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import 'Classes/assignedHelpRequest.dart';
+import 'package:location/location.dart';
 
 class HelpLocation extends StatefulWidget {
-  //LatLng locationOfEmergency;
-  //HelpLocation(this.locationOfEmergency);
+  double civilianLatitude, civilianLongitude;
+  HelpLocation(this.civilianLatitude, this.civilianLongitude);
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<HelpLocation> {
+  LocationData paramedicLocation;
   Completer<GoogleMapController> _controller = Completer();
   String googleAPIKey = 'AIzaSyDP-Tm7tTT69M5hxxJy0fY-aTzyFSajJ1Q';
+  LatLng locationOfEmergency;
   final Set<Marker> _markers = {};
   Set<Polyline> _polylines = {};
   PolylinePoints polylinePoints = PolylinePoints();
   List<LatLng> polylineCoordinates = [];
   BitmapDescriptor sourceIcon;
   BitmapDescriptor destinationIcon;
-  LatLng _lastMapPosition;
-  LatLng _l2 = LatLng(31.981340, 35.839020);
+  String emergencyAddress;
   List<LatLng> latlng = List();
-  static const LatLng _center = const LatLng(32.017509, 35.890251);
-  LatLng _l1 = _center;
-
+  //static const LatLng _center = const LatLng(32.017509, 35.890251);
+  EEWebService paramedicService = new EEWebService();
+  TravelTime travelTime;
   @override
   void initState() {
+    locationOfEmergency =
+        LatLng(widget.civilianLatitude, widget.civilianLongitude);
+    emergencyAddress = LocationFinder.getEmergencyAddress(
+        locationOfEmergency.latitude, locationOfEmergency.longitude);
+    paramedicService
+        .getTravelTime(
+            locationOfEmergency.latitude,
+            locationOfEmergency.longitude,
+            widget.civilianLatitude,
+            widget.civilianLongitude)
+        .then((value) {
+      travelTime = value;
+    });
     super.initState();
     setIcons();
   }
 
-  void setIcons()  {
-    sourceIcon =  BitmapDescriptor.defaultMarker;
-    destinationIcon =  BitmapDescriptor.defaultMarker;
+  void setIcons() {
+    sourceIcon = BitmapDescriptor.defaultMarker;
+    destinationIcon = BitmapDescriptor.defaultMarker;
   }
 
   // LatLng _l2 = LatLng(31.981340, 35.839020);
@@ -46,9 +62,9 @@ class _MyAppState extends State<HelpLocation> {
     //_center = locationOfEmergency;
 
     _controller.complete(controller);
-
-    latlng.add(_l1);
-    latlng.add(_l2);
+    //_l1 = LocationFinder.getUserLocation() as LatLng;
+    //latlng.add(_l1);
+    latlng.add(locationOfEmergency);
     setMapPins();
     setPolylines();
   }
@@ -56,44 +72,48 @@ class _MyAppState extends State<HelpLocation> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-            appBar: AppBar(
-              title: Text('Emergency Location'),
-              backgroundColor: Colors.blue[300],
-            ),
-            backgroundColor: Colors.black,
-            body: GoogleMap(
-              //that needs a list<Polyline>
+        home: Stack(children: [
+      GoogleMap(
+        //that needs a list<Polyline>
 
-              markers: _markers,
-              polylines: _polylines,
-              onMapCreated: _onMapCreated,
-              myLocationEnabled: true,
-              //onCameraMove: _onCameraMove,
-              initialCameraPosition: CameraPosition(
-                target: _center,
-                zoom: 11.0,
-              ),
+        markers: _markers,
+        polylines: _polylines,
+        onMapCreated: _onMapCreated,
+        myLocationEnabled: true,
+        //onCameraMove: _onCameraMove,
+        initialCameraPosition: CameraPosition(
+          target: locationOfEmergency,
+          zoom: 11.0,
+        ),
 
-              mapType: MapType.normal,
-            )));
+        mapType: MapType.normal,
+      ),
+      travelTimeCard()
+    ]));
   }
 
   void setMapPins() {
     setState(() {
       _markers.add(Marker(
-          markerId: MarkerId('sourcePin'), position: _l1, icon: sourceIcon));
+          markerId: MarkerId('sourcePin'),
+          position: locationOfEmergency,
+          icon: sourceIcon));
       _markers.add(Marker(
-          markerId: MarkerId('destPin'), position: _l1, icon: destinationIcon));
+          markerId: MarkerId('destPin'),
+          position: locationOfEmergency,
+          icon: destinationIcon));
     });
   }
 
   setPolylines() async {
-    PolylineResult result =
-        (await polylinePoints?.getRouteBetweenCoordinates(
-            googleAPIKey,
-            PointLatLng(_l1.latitude, _l1.longitude),
-            PointLatLng(_l2.latitude, _l2.longitude)));
+    paramedicLocation = await LocationFinder.getUserLocation();
+    latlng.add(LatLng(paramedicLocation.latitude, paramedicLocation.longitude));
+    latlng.add(locationOfEmergency);
+    PolylineResult result = (await polylinePoints?.getRouteBetweenCoordinates(
+        googleAPIKey,
+        PointLatLng(paramedicLocation.latitude, paramedicLocation.latitude),
+        PointLatLng(
+            locationOfEmergency.latitude, locationOfEmergency.longitude)));
 
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
@@ -108,8 +128,40 @@ class _MyAppState extends State<HelpLocation> {
       _polylines.add(polyline);
     });
   }
-}
 
+  Widget travelTimeCard() {
+    return Container(
+        margin: EdgeInsets.all(20),
+        height: 70,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  blurRadius: 20,
+                  offset: Offset.zero,
+                  color: Colors.grey.withOpacity(0.5))
+            ]),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Expanded(
+                child: Container(
+              margin: EdgeInsets.only(left: 20),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text('Emergency Location:{$emergencyAddress}'),
+                    Text(
+                        'Estimated Duration: ${travelTime.elements[0].duration}'),
+                  ]),
+            ))
+          ],
+        ));
+  }
+}
 
 //const String URL = "https://192.168.1.31:44390/ReciveHelpRequest";
 //void main() => runApp(MyApp());

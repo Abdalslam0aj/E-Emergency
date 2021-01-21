@@ -1,11 +1,20 @@
+import 'dart:async';
+
 import 'package:E_Emergency/domain/services/LoginModel.dart';
+import 'package:E_Emergency/pages/AboutusPage.dart';
 import 'package:E_Emergency/pages/CivilianMainMenu.dart';
+import 'package:E_Emergency/pages/EditInfoPage.dart';
+import 'package:E_Emergency/pages/FastHelp.dart';
 import 'package:E_Emergency/pages/HelpSentPage.dart';
+import 'package:E_Emergency/pages/InformationMnue.dart';
 import 'package:E_Emergency/pages/LoginPage.dart';
 import 'package:E_Emergency/pages/ParamedicMainMenu.dart';
+import 'package:E_Emergency/pages/Profile.dart';
 import 'package:E_Emergency/pages/RegisterPage.dart';
+import 'package:E_Emergency/pages/ResetPassword.dart';
 import 'package:E_Emergency/pages/SendHelpRequestScreen.dart';
 import 'package:E_Emergency/pages/SurvayPage.dart';
+import 'package:E_Emergency/widgets/SurvayWdigets/OtherPage.dart';
 import 'package:E_Emergency/widgets/informationNavigation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +33,12 @@ static Route<dynamic> generateRoute(RouteSettings settings)  {
   if(!userAuth) {
     if (settings.name =='Register'){        
      return MaterialPageRoute(builder: (_)=>Register());
+    }
+    if (settings.name =='FastHelp'){        
+     return MaterialPageRoute(builder: (_)=>FastHelp());
+    }
+     if (settings.name =='ResetPassword'){        
+     return MaterialPageRoute(builder: (_)=>ResetPassword());
     }
     if(_sr) { 
       _sr=false;      
@@ -53,7 +68,17 @@ static Route<dynamic> generateRoute(RouteSettings settings)  {
     case 'HelpSentPage':      
       return MaterialPageRoute(builder: (_)=>HelpSentPage());
     case 'InformationNavigation':      
-      return MaterialPageRoute(builder: (_)=> InformationNavigation(args));     
+      return MaterialPageRoute(builder: (_)=> InformationNavigation(args));
+    case 'OtherPage':      
+      return MaterialPageRoute(builder: (_)=> OtherPage(args));
+    case 'InformationMnue':      
+      return MaterialPageRoute(builder: (_)=>  InformationMnue());
+    case 'AboutUs':      
+      return MaterialPageRoute(builder: (_)=>   AboutUs());      
+    case 'Profile':      
+      return MaterialPageRoute(builder: (_)=>   Profile());
+    case 'EditInfoPage':      
+      return MaterialPageRoute(builder: (_)=>   EditInfoPage(args));        
     default:
     return MaterialPageRoute(builder: (_)=>Error());
       
@@ -78,7 +103,10 @@ class _LoadState extends State<Load> {
       RouteGenerator.userAuth=value;
       RouteGenerator.userType= await loginModel.userType();
       if(value) {
-        Navigator.of(context).pushNamed('MainMenu');
+        Timer(Duration(milliseconds: 20), (){
+           Navigator.of(context).pushNamed('MainMenu');
+        });
+       
       }
       else
         Navigator.of(context).pushNamed('Login');
