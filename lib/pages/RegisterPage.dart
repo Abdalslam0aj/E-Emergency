@@ -1,6 +1,7 @@
 import 'package:E_Emergency/domain/services/LoginModel.dart';
 import 'package:E_Emergency/domain/services/RegisterModel.dart';
 import 'package:E_Emergency/pages/LoginPage.dart';
+import 'package:E_Emergency/widgets/DialogFactory.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -209,6 +210,8 @@ class _RegisterState extends State<Register> {
                      
                    }
 
+                   } else {
+                      DialogFactory.showRegisterDialog(context, 'not vaild information', 'the regisration service has not approved your\ndata !!');
                    }
                    print(registerd);
                   },child: Text('Register',),

@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
               child: Row(
                 children: [
                   Text(
-                      'Forgat passowrd? ',
+                      'Forgot passowrd? ',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -133,22 +133,23 @@ class _LoginState extends State<Login> {
             width: double.infinity,
             height: 50,
           child:
-          RaisedButton(
-                color: Colors.redAccent,
-                textColor: Colors.white,
-                child: Text(
-                  '   Request Help\nnot registerd user',
-                  style: TextStyle(fontSize: 20),
+          Padding(
+            padding: const EdgeInsets.only(left:8.0,right: 8),
+            child: RaisedButton(
+                  color: Colors.redAccent,
+                  textColor: Colors.white,
+                  child: Text(
+                    '   Request Help\nnot registerd user',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    
+                    Navigator.pushNamed(context, 'FastHelp');
+                  },
+                  shape: new RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(30)),
                 ),
-                onPressed: () {
-                  
-                  Navigator.pushNamed(context, 'FastHelp');
-                },
-                shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(30)),
-              )),
-              SizedBox(height: 20,),
-             
+          )),
                SizedBox(
             height: 20,
           ),

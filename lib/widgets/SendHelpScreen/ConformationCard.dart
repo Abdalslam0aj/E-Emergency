@@ -1,3 +1,6 @@
+import 'dart:async';
+
+
 import 'package:E_Emergency/domain/services/LocationFinder.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +16,17 @@ class _ConformationCardState extends State<ConformationCard> {
   
   void initState() {  
     super.initState();   
-        LocationFinder.getUserAddress().then((add){
+        getAddress();
+       
+  }
+
+  getAddress(){
+    LocationFinder.getUserAddress().then((add){
           setState(() {
              address=add;
           });
-        }); 
+        });
+        
   }
     
 
@@ -27,6 +36,9 @@ class _ConformationCardState extends State<ConformationCard> {
 
   @override
   Widget build(BuildContext context) {
+   if(address=='wait...'){
+      new Timer(Duration(seconds: 1), getAddress());
+   }
     return Container(
         margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
         child: Column(
