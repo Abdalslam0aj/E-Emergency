@@ -45,9 +45,10 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
        if(value)
        Navigator.pushNamed(context, 'HelpSentPage');       
      } );
-    new Timer(Duration(milliseconds: 300), getaddres);
+    
     });
     super.initState();
+    getaddres();
   }
   
   getaddres(){
