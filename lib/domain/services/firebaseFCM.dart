@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 class PushNotificationService {
   final FirebaseMessaging _fcm;
   static BuildContext ctx;
+  static Function load;
   
 
   PushNotificationService(this._fcm);
@@ -30,6 +31,7 @@ class PushNotificationService {
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
         DialogFactory.showRegisterDialog(ctx, message['notification']['title'],message['notification']['body'] );
+       // if(message['notification']['title']==)Civilian needs help
         
       },
       onLaunch: (Map<String, dynamic> message) async {

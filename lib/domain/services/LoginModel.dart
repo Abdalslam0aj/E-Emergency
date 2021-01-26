@@ -22,20 +22,20 @@ class LoginModel {
 
   userLogedIn() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    if (sharedPreferences.getString('logedInUser') != null)
+  
+      if (sharedPreferences.getString('logedInUser') != null)
       return true;
     else
-      return true;
+      return false;
   }
 
   userType() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
+     print(sharedPreferences.getString('logedInUser'));
     if (sharedPreferences.getString('logedInUser') == 'paramedic')
       return true;
     else
-      return true;
+      return false;
   }
 
   static Future<void> logOutUser() async {

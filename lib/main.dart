@@ -66,8 +66,12 @@ class MyAppState extends State<MyApp> {
     //pushNotificationService.initialise();
     //EEWebService ee = new EEWebService();
 
+   final pushNotificationService = PushNotificationService(_firebaseMessaging);
+    pushNotificationService.initialise();
     return MaterialApp(
-      home: ParamedicMainMenu(),
-    );
+      onGenerateRoute: RouteGenerator.generateRoute,
+      initialRoute: 'MainMenu',
+      debugShowCheckedModeBanner: false,
+      ); 
   }
 }

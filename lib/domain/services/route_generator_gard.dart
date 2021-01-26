@@ -22,7 +22,7 @@ import 'package:flutter/material.dart';
 class RouteGenerator {
   static  bool userAuth=false;
   static  bool _sr=false;
-  static  bool userType=true;//flase civilian ||| true paramedic 
+  static  bool userType;//flase civilian ||| true paramedic 
   
 static Route<dynamic> generateRoute(RouteSettings settings)  {
   final args = settings.arguments;
@@ -50,8 +50,7 @@ static Route<dynamic> generateRoute(RouteSettings settings)  {
     }
   }
  
-  else {
-     print(settings.name);
+  else {    
   switch (settings.name) {
     case 'Login':      
       return MaterialPageRoute(builder: (_)=>Login(),);    

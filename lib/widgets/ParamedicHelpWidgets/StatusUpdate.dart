@@ -1,5 +1,6 @@
 import 'package:E_Emergency/widgets/Classes/helpRequest.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../informationNavigation.dart';
 
@@ -46,7 +47,7 @@ class _RequestStatusUpdate extends State<RequestStatusUpdate> {
                 ))),
         FlatButton(
             onPressed: () {
-              showNearestHospital();
+              endRequest();
             },
             child: Text('End request')),
       ]));
@@ -69,6 +70,7 @@ class _RequestStatusUpdate extends State<RequestStatusUpdate> {
     InformationNavigation.requestEnded = true;
 
     navigationBar.onTap(0);
+   // SystemNavigator.pop();
   }
 }
 

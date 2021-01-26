@@ -2,6 +2,8 @@ import 'package:E_Emergency/data/webservice/EEWebService.dart';
 import 'package:E_Emergency/widgets/showCivilianInfo.dart';
 import 'package:E_Emergency/widgets/showIncomingHelpRequestLocation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Classes/helpRequest.dart';
 import 'ParamedicHelpWidgets/ParamedicProfile.dart';
@@ -34,8 +36,8 @@ class _InformationNavigation extends State<InformationNavigation> {
       CivlianInformation(helpRequest),
       HelpLocation(helpRequest.latitude, helpRequest.longitude),
       RequestStatusUpdate(
-          InformationNavigation.arrivedAtEmergencyLocation, helpRequest),
-      ParamedicProfile()
+      InformationNavigation.arrivedAtEmergencyLocation, helpRequest),
+      
     ];
 
     return Scaffold(
@@ -46,6 +48,7 @@ class _InformationNavigation extends State<InformationNavigation> {
         child: _navigationPages.elementAt(_currentIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+
         key: InformationNavigation.globalKey,
         items: [
           BottomNavigationBarItem(
@@ -59,15 +62,11 @@ class _InformationNavigation extends State<InformationNavigation> {
           BottomNavigationBarItem(
               icon: Icon(Icons.check),
               label: 'Status',
-              backgroundColor: Colors.blue),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_box),
-              label: 'Profile',
-              backgroundColor: Colors.blue)
+              backgroundColor: Colors.blue),         
         ],
         currentIndex: _currentIndex,
-        selectedItemColor: Colors.yellow[700],
-        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.lightBlue,
+        unselectedItemColor: Colors.lightBlue[200],
         onTap: (index) {
           onTappedNavBar(index);
         },
@@ -101,11 +100,16 @@ class _InformationNavigation extends State<InformationNavigation> {
   }
 
   void endRequest() {
-    setState(() {
+    setState(()  {
       if (InformationNavigation.requestEnded) {
-        ee.endRequest(helpRequest.civilianPhoneNumber);
+        SharedPreferences.getInstance().then((value) {
+       String userPhoneNumber =value.getString('phoneNumber');
+        ee.endRequest(userPhoneNumber);
+
+        }); 
         print(InformationNavigation.requestEnded);
-        Navigator.of(context).pop();
+        SystemNavigator.pop();
+        
       }
     });
   }
