@@ -40,7 +40,11 @@ class _HelpSentPageState extends State<HelpSentPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(      
+    return WillPopScope(
+      onWillPop: () async {
+      return false;
+      },
+    child: Scaffold(      
       body: Container(
          decoration: BoxDecoration(
            
@@ -58,6 +62,6 @@ class _HelpSentPageState extends State<HelpSentPage> {
         ],
       ), ),
       
-    );
+    ));
   }
 }
