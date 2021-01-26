@@ -408,6 +408,7 @@ class EEWebService implements EEWebServiceInterface {
         'notificationToken': notificationToken,
       };
       print(map);
+<<<<<<< HEAD
 
       var head = {'Content-Type': 'application/json; charset=UTF-8'};
       var ioClient = new IOClient(client);
@@ -450,6 +451,118 @@ class EEWebService implements EEWebServiceInterface {
       String email,
       String medicalCondition,
       String notificationToken) async {
+=======
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'UpdateCivilian'), body: map,);
+  
+
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);
+    String boolAsString;
+    boolAsString=response.body.toString();
+    bool b = boolAsString == 'true';      
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return b;
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return false;
+        }     
+     }catch(e){
+       print(e);
+       return false;
+     }
+ 
+
+   }
+
+
+   Future<Announcemnet> getAnnouncement () async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true); 
+        var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.get(Uri.parse(URL+'GetAnnouncement'),);
+  
+
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);     
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return Announcemnet.fromJson(jsonDecode(response.body));
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+
+          return Announcemnet.fromJson(jsonDecode(response.body));
+        }     
+     }catch(e){
+       print(e);
+       return Announcemnet();
+     }
+ 
+   }
+
+   Future<bool> resetPassowrd(String phoneNumber,) async {
+     try{
+       HttpClient client = new HttpClient();
+        client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+               
+
+     Map<dynamic,dynamic> map = {
+        'phoneNumber' :phoneNumber,            
+      };
+      print(map);
+ 
+   var head={
+        'Content-Type': 'application/json; charset=UTF-8'
+      };
+    var ioClient = new IOClient(client);
+    
+     http.Response response = await ioClient.post(Uri.parse(URL+'ResetPassword'), body: map,);
+  
+
+    String reply = await response.body.toString();
+    print("sent ");
+    print(response.body);
+    String boolAsString;
+    boolAsString=response.body.toString();
+    bool b = boolAsString == 'true';      
+     
+        if(response.statusCode==200||response.statusCode==201||response.statusCode==202) {
+          //if(httpResponse.body=="true")
+           print("sent correctly");
+          return b;
+         
+        } else {
+           print("not sent"+response.statusCode.toString());
+          return false;
+        }     
+     }catch(e){
+       print(e);
+       return false;
+     }
+ 
+
+   }
+
+   
+   Future<NearestHospital> arrivedAtLocation(
+      String phoneNumber, String latitude, String longitude) async {
+>>>>>>> 288af48 (rest fast and fixed regester)
     try {
       HttpClient client = new HttpClient();
       client.badCertificateCallback =
