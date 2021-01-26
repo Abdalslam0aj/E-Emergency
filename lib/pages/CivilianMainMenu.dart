@@ -22,7 +22,7 @@ class CivilianMainMenu extends StatefulWidget {
 class _CivilianMainMenuState extends State<CivilianMainMenu> {
   
   
-  String loc="";
+  String loc='wait...';
   static LocationData userLocation;
   static double lon;
   static double lat;
@@ -48,7 +48,7 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
     
     });
     super.initState();
-    getaddres();
+   new Timer(Duration(seconds: 2), getaddres);
   }
   
   getaddres(){
@@ -70,32 +70,23 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
 
   @override
   Widget build(BuildContext context) {
-    if(loc==''){
-       LocationFinder.getUserAddress().then((address){
-      setState(() {
-         loc=address;
-      });
-     
-     });
-
-    }
-    
-    return Scaffold(
+ 
+    return WillPopScope(
+      onWillPop: () async {
+      return false;
+      },
+    child :Scaffold(
       body:
     Container(color: Colors.black,          
           child:Column(
             children: <Widget>[
               TopBar(),
               GovermentAnnouncementWidget(),
-              AskForHelpWidget('Requst Medical Help',_sendHelpRequest),
-              
-          
+              AskForHelpWidget('Requst Medical Help',_sendHelpRequest), 
                 Stack(
                   children: [
-                      
                     gooogleMapCivilian,
                       Container(
-                        
                         margin: EdgeInsets.only(left:20,top: 15),
                         alignment: Alignment.center,
                         width: MediaQuery.of(context).size.width*0.90,
@@ -112,7 +103,7 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
                              
                 child: Padding(
                   padding: const EdgeInsets.only(top:12,left: 20,right: 20,bottom: 12),
-                  child: Text(loc==""?'wait..':loc,style: TextStyle(color: Colors.blue),),
+                  child: Text(loc,style: TextStyle(color: Colors.blue),),
                 ),
                  ),
                   ],
@@ -121,6 +112,6 @@ class _CivilianMainMenuState extends State<CivilianMainMenu> {
               ),
     )
             
-    );
+    ));
   }
 }
