@@ -16,7 +16,7 @@ class LoginModel {
       sharedPreferences.setString('phoneNumber', loged.phoneNumber.toString());
       return true;
     } else {
-      return true;
+      return false;
     }
   }
 
