@@ -19,8 +19,8 @@ class CivlianInformation extends StatelessWidget {
           child: Container(
             width: 300,
             height: 100,
-            child: Text('Civilian phone number: ' +
-                helpRequest.civilianPhoneNumber.toString()),
+            child: Text(
+                'Civilian phone number: ' + helpRequest.civilianPhoneNumber),
           ),
         ),
       ),

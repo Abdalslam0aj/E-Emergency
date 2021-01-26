@@ -61,6 +61,7 @@ class LocationFinder {
     final coordinates = new Coordinates(latitude, longtitude);
     var addresses =
         await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    //Geocoder.google('AIzaSyDP-Tm7tTT69M5hxxJy0fY-aTzyFSajJ1Q',);
     var first = addresses.first;
 
     _myAddress = ' ${first.subLocality}, ${first.addressLine}';
