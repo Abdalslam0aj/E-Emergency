@@ -1,4 +1,5 @@
 import 'package:E_Emergency/data/webservice/EEWebService.dart';
+import 'package:E_Emergency/domain/services/firebaseFCM.dart';
 import 'package:E_Emergency/widgets/showCivilianInfo.dart';
 import 'package:E_Emergency/widgets/showIncomingHelpRequestLocation.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _InformationNavigation extends State<InformationNavigation> {
       InformationNavigation.arrivedAtEmergencyLocation, helpRequest),
       
     ];
-
+     PushNotificationService.ctx=context;
     return Scaffold(
       appBar: AppBar(
         title: Text('Emergency Request'),
