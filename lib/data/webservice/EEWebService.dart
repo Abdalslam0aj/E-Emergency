@@ -49,7 +49,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'ReciveHelpRequest'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -91,7 +91,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'CheckRequest'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);
          
@@ -140,7 +140,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'EndHelpRequest'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -184,7 +184,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'GetUserInfo'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -226,7 +226,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'GetHelpRequest'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -271,7 +271,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'UpdateDescription'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -315,7 +315,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'GetMyHelpRequest'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -359,7 +359,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'TimeToArrive'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -402,7 +402,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'LoginUser'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -453,7 +453,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'RegisterCivilian'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);
     String boolAsString;
@@ -506,7 +506,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'UpdateCivilian'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);
     String boolAsString;
@@ -540,7 +540,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.get(Uri.parse(URL+'GetAnnouncement'),);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);     
      
@@ -580,7 +580,7 @@ static const String URL="https://192.168.1.31:44390/";
      http.Response response = await ioClient.post(Uri.parse(URL+'ResetPassword'), body: map,);
   
 
-    String reply = await response.body.toString();
+    String reply = response.body.toString();
     print("sent ");
     print(response.body);
     String boolAsString;

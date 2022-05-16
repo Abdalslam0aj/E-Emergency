@@ -8,10 +8,10 @@ class LoginModel {
 
   Future<bool> loginUser(String phoneNumber,String password) async {
     EEWebService service=new EEWebService();
-    String token = await TokenMaker.getNotificationToken();
+    //String token = await TokenMaker.getNotificationToken();
     SharedPreferences sharedPreferences=await SharedPreferences.getInstance();
     
-    User loged= await service.login(phoneNumber, password, token);
+    User loged= await service.login(phoneNumber, password, '');
     if(loged.phoneNumber!=null && loged.userType!=null) {   
     sharedPreferences.setString('logedInUser',loged.userType.toString());
     sharedPreferences.setString('phoneNumber',loged.phoneNumber.toString());
